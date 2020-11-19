@@ -1,3 +1,3 @@
-# final-project
+# Personal-blog-website
 
-This a project for bulding a personal blog website using python!
+This is a CS565 final project for bulding a personal blog website using python!
