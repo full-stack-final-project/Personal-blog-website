@@ -3,15 +3,23 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
+[dev-packages]
+coverage = "*"
+watchdog = "*"
+"flake8" = "*"
+faker = "*"
+
 [packages]
 flask = "*"
-<<<<<<< HEAD
-=======
+flask-ckeditor = "*"
+flask-mail = "*"
 flask-sqlalchemy = "*"
+flask-wtf = "*"
+flask-moment = "*"
+python-dotenv = "*"
+bootstrap-flask = "*"
 flask-login = "*"
->>>>>>> 1287dbfb324ceced6c80a380036feec583ccd92b
-
-[requires]
-python_version = "3.6"
-
-[dev-packages]
+flask-debugtoolbar = "*"
+gunicorn = "*"
+"psycopg2" = "*"
+flask-migrate = "*"
