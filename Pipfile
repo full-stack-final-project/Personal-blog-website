@@ -5,6 +5,11 @@ name = "pypi"
 
 [packages]
 flask = "*"
+<<<<<<< HEAD
+=======
+flask-sqlalchemy = "*"
+flask-login = "*"
+>>>>>>> 1287dbfb324ceced6c80a380036feec583ccd92b
 
 [requires]
 python_version = "3.6"
