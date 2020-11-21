@@ -1,7 +1,7 @@
 import os
-from views.admin import admin_blueprint
-from views.authorization import authorization_buleprint
-from views.blogs import blogs_blueprint
+from blog.views.admin import admin_blueprint
+from blog.views.authorization import authorization_buleprint
+from blog.views.blogs import blogs_blueprint
 from config import config
 
 from flask import Flask
