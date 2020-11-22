@@ -44,7 +44,6 @@ class admin_comment_form(comment_form):
 class setting_form(FlaskForm):
     name = StringField('Name', validators = [DataRequired(), Length(1, 30)])
     blog_title = StringField('Blog Title', validators = [DataRequired(), Length(1, 50)])
-    #blog_sub_title = StringField('Blog Subtitle', validators = [DataRequired(), Length(1, 100)])
     about = CKEditorField('About Page', validators = [DataRequired()])
     submit = SubmitField()
 
