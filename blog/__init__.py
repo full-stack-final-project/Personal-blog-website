@@ -3,7 +3,8 @@ from blog.views.admin import admin_blueprint
 from blog.views.authorization import authorization_buleprint
 from blog.views.blogs import blogs_blueprint
 from config import config
-from blog.extensions import db
+from extensions import db
+from blog.models import Admin, Article, Category, Comment, Link
 
 from flask import Flask
 
@@ -19,6 +20,32 @@ def register_blueprints(app):
 def register_extensions(app):
     db.init_app(app)
 
+def register_commands(app):
+    @app.cli.command()
+    @click.option('--username', prompt=True)
+    @click.option('--password', prompt=True, hide_input=True, confirmation_prompt=True)
+    @click.option('--site_title', prompt=True)
+
+    def init(username, password):
+
+        click.echo('Initializing...')
+        db.crete_all()
+
+        admin = Admin.query.first()
+        if admin is not None:
+            admin.username = username
+            admin.set_password(password)
+        
+        else:
+            admin = Admin(username=username, name='Admin', site_title=site_title, about="")
+            admin.set_password(password)
+            db.session.add(admin)
+
+        if Category.query.first() is None:
+            category = Category(name='Default')
+            db.session.add(category)
+        
+        db.session.commit()
 
 
 def create_app(config_name=None):

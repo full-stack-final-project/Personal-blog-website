@@ -1,7 +1,7 @@
 from datetime import datetime
 from flask_login import UserMixin
 from blog.extensions import db
-
+from werkzeug.security import generate_password_hash, check_password_hash
 
 class Admin(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key = True)
@@ -9,8 +9,15 @@ class Admin(db.Model, UserMixin):
     name = db.Column(db.String(30))
     about = db.Column(db.Text)
     password = db.Column(db.String(128))
-    blog_title = db.Column(db.String(50))
+    site_title = db.Column(db.String(50))
+
+    def set_password(self, password):
+        self.password = generate_password_hash(password)
     
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
+
+
 class Article(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     title = db.Column(db.String(50))
