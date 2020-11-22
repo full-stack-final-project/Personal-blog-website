@@ -3,8 +3,9 @@ from blog.views.admin import admin_blueprint
 from blog.views.authorization import authorization_buleprint
 from blog.views.blogs import blogs_blueprint
 from config import config
-from extensions import db
+from extensions import db, csrf
 from blog.models import Admin, Article, Category, Comment, Link
+from flask_wtf.csrf import CSRFError
 
 from flask import Flask
 
@@ -19,6 +20,7 @@ def register_blueprints(app):
 
 def register_extensions(app):
     db.init_app(app)
+    csrf.init_app(app)
 
 def register_commands(app):
     @app.cli.command()
@@ -57,5 +59,10 @@ def create_app(config_name=None):
 
     register_blueprints(app)
     register_extensions(app)
+    register_commands(app)
 
     return app
+
+@app.errorhandler(CSRFError)
+def handle_csrf_error(e):
+    return 
