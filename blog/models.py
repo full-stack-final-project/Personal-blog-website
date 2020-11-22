@@ -1,8 +1,7 @@
 from datetime import datetime
 from flask_login import UserMixin
-from flask_sqlalchemy import SQLAlchemy
+from blog.extensions import db
 
-db = SQLAlchemy()
 
 class Admin(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key = True)

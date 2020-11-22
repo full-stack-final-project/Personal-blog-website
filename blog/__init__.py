@@ -3,6 +3,7 @@ from blog.views.admin import admin_blueprint
 from blog.views.authorization import authorization_buleprint
 from blog.views.blogs import blogs_blueprint
 from config import config
+from blog.extensions import db
 
 from flask import Flask
 
@@ -13,6 +14,12 @@ def register_blueprints(app):
     app.register_blueprint(blogs_blueprint)
     app.register_blueprint(authorization_buleprint, url_prefix='/authorization')
     app.register_blueprint(admin_blueprint, url_prefix='admin')
+    
+
+def register_extensions(app):
+    db.init_app(app)
+
+
 
 def create_app(config_name=None):
     if config_name is None:
@@ -22,5 +29,6 @@ def create_app(config_name=None):
     app.config.from_object(config[config_name])
 
     register_blueprints(app)
+    register_extensions(app)
 
     return app
