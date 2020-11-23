@@ -46,8 +46,3 @@ class setting_form(FlaskForm):
     blog_title = StringField('Blog Title', validators = [DataRequired(), Length(1, 50)])
     about = CKEditorField('About Page', validators = [DataRequired()])
     submit = SubmitField()
-
-class link_form(FlaskForm):
-    name = StringField('Name', validators = [DataRequired(), Length(1, 30)])
-    url = StringField('URL', validators = [DataRequired(), URL(), Length(1, 255)])
-    submit = SubmitField()
