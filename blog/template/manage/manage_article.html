@@ -1,0 +1,89 @@
+{% from 'bootstrap/pagination.html' import render_pagination  %}
+{% extends 'layout.html' %}
+
+{% block title %}
+Home
+{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h1 class="display-3">
+        {{ admin.site_title | default('Blog Title')}}
+    </h1>
+</div>
+<div class="row">
+    <div class="col-8">
+
+        {% if articles %}
+        {% for article in articles %}
+        <h3 class="text-primary">
+            <a href="{{ url_for('.show_article', article_id = article.id)}}">
+                {{ article.title }}
+            </a>
+        </h3>
+        <p>
+            {{ article.body | striptags | truncate}}
+            <a href=" {{ url_for('.show_article', article_id = article.id) }}">
+                Read more
+            </a>
+
+        </p>
+        <small>
+            <span class="float-left">
+                {{ moment(article.timestamp).format('LL')}}
+            </span>
+            Comments:
+            <a href="{{ url_for('.show_article', article_id = article.id)}}#comments">
+                {{ article.comments | length}}
+            </a>&nbsp;&nbsp;
+            Category:
+            <a href="{{ url_for('.show_category', category_id = article.category.id)}}">
+                {{ article.category.name}}
+            </a>
+            <div class="float-right">
+                <form class="inline" method="post"
+                    action="{{ url_for('.set_comment', article_id=article.id, next=request.full_path) }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                    <button type="submit" class="btn btn-light btn-sm">
+                        {% if article.can_comment %}Disable{% else %}Enable{% endif %} Comment
+                    </button>
+                </form>
+                <a class="btn btn-light btn-sm" 
+                    href="{{ url_for('.edit_article', article_id=article.id) }}">
+                    Edit
+                </a>
+                <form class="inline" method="post"
+                    action="{{ url_for('.delete_article', article_id=article.id, next=request.full_path) }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                    <button type="submit" class="btn btn-danger btn-sm"
+                        onclick="return confirm('Are you sure?');">Delete
+                    </button>
+                </form>
+
+            </div>
+        </small>
+        {% if not loop.last %}
+        <hr>
+        {% endif %}
+        {% endfor %}
+        {% else %}
+        <div class="tip">
+            <h5>There are no articles yet.</h5>
+            
+            <a href="{{ url_for('admin.new_article')}}">
+                Write the first article
+            </a>
+            
+        </div>
+        {% endif %}
+
+        {% if articles %}
+        <div class="page-footer">
+            {{ render_pagination(pagination)}}
+        </div>
+        {% endif %}
+    </div>
+    <div class="col-4 sidebar">
+        {% include 'blog/_sidebar.html' %}
+    </div>
+</div>
+{% endblock %}
