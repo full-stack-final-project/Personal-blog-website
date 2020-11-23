@@ -3,7 +3,7 @@ from blog.views.admin import admin_blueprint
 from blog.views.authorization import authorization_buleprint
 from blog.views.blogs import blogs_blueprint
 from config import config
-from extensions import db, csrf
+from extensions import db, csrf, bootstrap
 from blog.models import Admin, Article, Category, Comment, Link
 from flask_wtf.csrf import CSRFError
 
@@ -21,6 +21,7 @@ def register_blueprints(app):
 def register_extensions(app):
     db.init_app(app)
     csrf.init_app(app)
+    bootstrap.init_app(app)
 
 def register_commands(app):
     @app.cli.command()
