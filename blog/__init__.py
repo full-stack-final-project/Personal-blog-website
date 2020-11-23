@@ -1,5 +1,5 @@
 import os
-from blog.views.admin import admin_blueprint
+from blog.views.management import manage_blueprint
 from blog.views.authorization import authorization_buleprint
 from blog.views.blogs import blogs_blueprint
 from config import config
@@ -15,7 +15,7 @@ app.config.from_pyfile('config.py')
 def register_blueprints(app):
     app.register_blueprint(blogs_blueprint)
     app.register_blueprint(authorization_buleprint, url_prefix='/authorization')
-    app.register_blueprint(admin_blueprint, url_prefix='admin')
+    app.register_blueprint(manage_blueprint, url_prefix='management')
     
 
 def register_extensions(app):
