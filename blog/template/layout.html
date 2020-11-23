@@ -63,9 +63,9 @@
                                     </div>
                                 </li>
                                 {{ render_nav_item('admin.settings', 'Settings')}}
-                                <a href="{{ url_for('auth.logout', next = request.full_path )}}">Logout</a>
+                                <a href="{{ url_for('authorization.logout', next = request.full_path )}}">Logout</a>
                             {% else %}
-                                <a href="{{ url_for('auth.login', next = request.full_path )}}">Login</a>
+                                <a href="{{ url_for('authorization.login', next = request.full_path )}}">Login</a>
                             {% endif %}
                         </ul>
                     </div>
@@ -89,7 +89,7 @@
                 </footer>
             {% endblock footer %}
         </main>
-        
+
         {% block script %}
             <script type="text/javascript" src="{{ url_for('static', filename = 'js/jquery-3.2.1.slim.min.js') }}"></script>
             <script type="text/javascript" src="{{ url_for('static', filename = 'js/popper.min.js') }}"></script>
