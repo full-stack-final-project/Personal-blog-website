@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, TextAreaField, ValidationError, HiddenField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, 
+                    SelectField, TextAreaField, ValidationError, HiddenField
 from wtforms.validators import DataRequired, Length, Email, Optional, URL
 from flask_ckeditor import CKEditorField
 from blog.models import Category
@@ -18,7 +19,8 @@ class article_form(FlaskForm):
 
     def __init__(self, *args, **kwargs):
         super(article_form, self).__init__(*args, **kwargs)
-        self.category.choices = [(category.id, category.name) for category in Category.query.order_by(Category.name).all()]
+        self.category.choices = [(category.id, category.name) 
+                                for category in Category.query.order_by(Category.name).all()]
 
 class category_form(FlaskForm):
     name = StringField('Name', validators = [DataRequired, Length(1, 30)])

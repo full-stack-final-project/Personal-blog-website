@@ -1,7 +1,9 @@
 {% from 'bootstrap/pagination.html' import render_pagination %}
 {% extends 'layout.html' %}
 
-{% block title %}{{ category.name}}{% endblock %}
+{% block title %}
+    {{ category.name}}
+{% endblock %}
 {% block content %}
     <div class="page-header">
         <h1>Category -- {{ category.name}}</h1>
@@ -14,7 +16,9 @@
             {% if articles %}
                 {% for article in articles %}
                     <h3 class="text-primary">
-                        <a href="{{ url_for('.show_article', article_id = article.id)}}">{{ article.title }}</a>
+                        <a href="{{ url_for('.show_article', article_id = article.id)}}">
+                            {{ article.title }}
+                        </a>
                     </h3>
                     <p>
                         {{ article.body | striptags | truncate}}
@@ -23,13 +27,17 @@
                         </small>
                     </p>
                     <small>
-                        Comments: <a href="{{ url_for('.show_article', article_id = article.id)}}#comments">
-                            {{ article.comments | length}}</a>&nbsp;&nbsp;
-                        Category: <a href="{{ url_for('.show_category', category_id = article.category.id)}}">
-                                {{ article.category.name}}</a>
-                                <span class="float-right">
-                                    {{ moment(article.timestamp).format('LL')}}
-                                </span>
+                        Comments: 
+                        <a href="{{ url_for('.show_article', article_id = article.id)}}#comments">
+                            {{ article.comments | length}}
+                        </a>&nbsp;&nbsp;
+                        Category: 
+                        <a href="{{ url_for('.show_category', category_id = article.category.id)}}">
+                                {{ article.category.name}}
+                        </a>
+                            <span class="float-right">
+                                {{ moment(article.timestamp).format('LL')}}
+                            </span>
                     </small>
                     {% if not loop.last %}
                         <hr>
@@ -39,7 +47,9 @@
                 <div class="tip">
                     <h5>There are no articles yet.</h5>
                     {% if current_user.is_authenticated %}
-                        <a href="{{ url_for('admin.new_article')}}">Write the first article</a>
+                        <a href="{{ url_for('admin.new_article')}}">
+                            Write the first article
+                        </a>
                     {% endif %}
                 </div>
             {% endif %}

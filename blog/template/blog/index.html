@@ -1,8 +1,9 @@
 {% from 'bootstrap/pagination.html' import render_pager %}
 {% extends 'layout.html' %}
 
-{% block title %}Home{% endblock %}
-
+{% block title %}
+    Home
+{% endblock %}
 {% block content %}
     <div class="page-header">
         <h1 class="display-3">
@@ -28,14 +29,17 @@
                         </small>
                     </p>
                     <small>
-                        Comments: <a href="{{ url_for('.show_article', article_id = article.id)}}#comments">
+                        Comments:
+                        <a href="{{ url_for('.show_article', article_id = article.id)}}#comments">
                             {{ article.comments | length}}
                         </a>&nbsp;&nbsp;
-                        Category: <a href="{{ url_for('.show_category', category_id = article.category.id)}}">
-                                {{ article.category.name}}</a>
-                                <span class="float-right">
-                                    {{ moment(article.timestamp).format('LL')}}
-                                </span>
+                        Category: 
+                        <a href="{{ url_for('.show_category', category_id = article.category.id)}}">
+                            {{ article.category.name}}
+                        </a>
+                            <span class="float-right">
+                                {{ moment(article.timestamp).format('LL')}}
+                            </span>
                     </small>
                     {% if not loop.last %}
                         <hr>
