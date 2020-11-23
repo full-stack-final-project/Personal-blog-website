@@ -25,7 +25,9 @@ def register_extensions(app):
 def register_commands(app):
     @app.cli.command()
     @click.option('--username', prompt=True)
-    @click.option('--password', prompt=True, hide_input=True, confirmation_prompt=True)
+    @click.option('--password', prompt=True, 
+                                hide_input=True, 
+                                confirmation_prompt=True)
     @click.option('--site_title', prompt=True)
 
     def init(username, password):
@@ -39,7 +41,9 @@ def register_commands(app):
             admin.set_password(password)
         
         else:
-            admin = Admin(username=username, name='Admin', site_title=site_title, about="")
+            admin = Admin(username=username, 
+                          name='Admin', 
+                          site_title=site_title, about="")
             admin.set_password(password)
             db.session.add(admin)
 
