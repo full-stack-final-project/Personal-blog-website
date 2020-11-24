@@ -16,7 +16,7 @@ def fake_admin():
                     I will share my stories and some articles in this blog.',
         site_title = name + "'s Personal blog"
     )
-    admin.set_password('20fallweb')
+    admin.set_password('webdev')
     db.session.add(admin)
     db.session.commit()
 

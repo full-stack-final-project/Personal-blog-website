@@ -19,7 +19,8 @@
                           action="{{ url_for('admin.delete_article', article_id = article.id, next = url_for('blog.index'))}}">
                           <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                           <button type="submit" class="btn btn-danger btn-sm" 
-                               onclick="return confirm('Do you really want to delete this article?');">Delete
+                               onclick="return confirm('Do you really want to delete this article?');">
+                               Delete
                           </button>
                     </form>
                 {% endif %}
@@ -113,12 +114,14 @@
                                 </div>
                                 {% if comment.replied %}
                                     <p class="alert alert-dark reply-body">
-                                        {{ comment.replied.person_post }}: <br> {{ comment.replied.body}}
+                                        {{ comment.replied.person_post }}: <br> 
+                                        {{ comment.replied.body}}
                                     </p>
                                 {% endif %}
                                 <p class="mb-1">{{comment.body}}</p>
                                 <div class="float-right">
-                                    <a href="{{ url_for('.reply_comment', comment_id = comment.id)}}" class="btn btn-light btn-sm">
+                                    <a href="{{ url_for('.reply_comment', comment_id = comment.id)}}" 
+                                        class="btn btn-light btn-sm">
                                         Reply
                                     </a>
                                     {% if current_user.is_authenicated %}

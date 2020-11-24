@@ -23,7 +23,9 @@
                     <p>
                         {{ article.body | striptags | truncate}}
                         <small>
-                            <a href=" {{ url_for('.show_article', article_id = article.id) }}">Read more</a>
+                            <a href=" {{ url_for('.show_article', article_id = article.id) }}">
+                                Read more
+                            </a>
                         </small>
                     </p>
                     <small>

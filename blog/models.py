@@ -17,6 +17,26 @@ class Admin(db.Model, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
+class Bio(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String(30))
+    intro = db.Column(db.Text)
+    skills = db.relationship('Skill', back_populates = 'bio')
+    projects = db.relationship('Project', back_populates = 'bio')
+
+class Skill(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String(30), unique = True)
+    bio_id = db.Column(db.Integer, db.ForeignKey('bio.id'))
+    bio = db.relationship('Bio', back_populates = 'skills')
+
+class Project(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    title = db.Column(db.String(50))
+    abstract = db.Column(db.Text)
+    bio_id = db.Column(db.Integer, db.ForeignKey('bio.id'))
+    bio = db.relationship('Bio', back_populates = 'projects')
+    role = db.Column(db.String(30))
 
 class Article(db.Model):
     id = db.Column(db.Integer, primary_key = True)
@@ -52,6 +72,7 @@ class Comment(db.Model):
     site = db.Column(db.String(255))
     reply_id = db.Column(db.Integer, db.ForeignKey('comment.id'))
     article_id = db.Column(db.Integer, db.ForeignKey('article.id'))
+    
     # to support comments to reply comments
     article = db.relationship('Article', back_populates = 'comments')
     replies = db.relationship('Comment', back_populates = 'replied', cascade = 'all, delete-orphan')
