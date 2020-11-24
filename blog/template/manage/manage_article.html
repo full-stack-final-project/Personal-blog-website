@@ -44,7 +44,12 @@ Home
                     action="{{ url_for('.set_comment', article_id=article.id, next=request.full_path) }}">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
                     <button type="submit" class="btn btn-light btn-sm">
-                        {% if article.can_comment %}Disable{% else %}Enable{% endif %} Comment
+                        {% if article.comment_open %}
+                            Disable
+                        {% else %}
+                            Enable
+                        {% endif %}
+                            Comment
                     </button>
                 </form>
                 <a class="btn btn-light btn-sm" 
