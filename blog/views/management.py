@@ -43,14 +43,42 @@ def delete_article(article_id):
     db.session.delete(article)
     db.session.commit()
     flash('Deleted', 'success')
-    return redirect_back()
+    return redirect(url_for('blog.display_article', article_id=article.id))
 
 @manage_blueprint.route('/category/manage')
 @login_required
 def manage_category():
-    return render_template('mannage/manage_category.html')
+    return render_template('manage/manage_category.html')
 
 @manage_blueprint.route('/category/<int:category_id>/delete', methods=['POST'])
+@login_required
+def delete_category(category_id):
+    category = Category.query.get_or_404(category_id)
+    if category.id == 1:
+        flash('This is a default category! Cannot delete!', 'warning')
+        return render_template('manage/manage_category.html')
+    category.delete()
+    flash('Deleted', 'success')
+    return render_template('manage/manage_category.html')
+
+@manage_blueprint.route('article/add', methods['GET', 'POST'])
+@login_required
+def add_article():
+    form = article_form()
+    if form.validate_on_sumbit():
+        title = form.title.data 
+        body = form.body.data 
+        category = form.category.data    
+        article = Article(title=title, body=body, category=category)
+        db.session.add(article)
+        db.session.commit()
+        flash('Added', 'success')
+        return redirect(url_for('blog.display_article', article_id=article.id))
+    return render_template('manage/add_article.html', form=form)
+
+
+
+
 
 
     
