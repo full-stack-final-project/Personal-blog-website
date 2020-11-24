@@ -22,6 +22,8 @@ def fake_admin():
 
 # fake categories data
 def fake_categories(count = 10):
+    category = Category(name='Default') 
+    db.session.add(category) 
     for i in range(count):
         category = Category(name = fake.work())
         db.session.add(category)
