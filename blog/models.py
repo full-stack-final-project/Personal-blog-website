@@ -33,6 +33,14 @@ class Category(db.Model):
     name = db.Column(db.String(30), unique = True)
     articles = db.relationship('Article', back_populates = 'category')
 
+    def delete(self):
+        default = Category.query.get(1)
+        articles = self.articles[:]
+        for a in articles:
+            a.category = default
+        db.session.delete(self)
+        db.session.commit()
+
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     person_post = db.Column(db.String(30))

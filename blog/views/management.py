@@ -18,6 +18,7 @@ def manage_article():
     onepage_articles = onepage.items
     return render_template('manage/manage_article.html', page=page, pagination=onepage, onepage_articles=onepage_articles)
 
+
 @manage_blueprint.route('/article/<int:article_id>/edit', methods=['POST', 'GET'])
 @login_required
 def edit_article(article_id):
@@ -43,6 +44,13 @@ def delete_article(article_id):
     db.session.commit()
     flash('Deleted', 'success')
     return redirect_back()
+
+@manage_blueprint.route('/category/manage')
+@login_required
+def manage_category():
+    return render_template('mannage/manage_category.html')
+
+@manage_blueprint.route('/category/<int:category_id>/delete', methods=['POST'])
 
 
     
