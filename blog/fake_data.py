@@ -44,6 +44,7 @@ def fake_articles(count = 100):
 
 # fake comments data
 def fake_comments(count = 300):
+    # for reviewed comments
     for i in range(count):
         comment = Comment(
             person_post = fake.name(),
@@ -53,6 +54,48 @@ def fake_comments(count = 300):
             email = fake.email(),
             site = fake.url(),
             article = Article.query.get(random.randint(1, Article.query.count()))
+        )
+        db.session.add(comment)
+
+    # for unreviewed comments
+    number = count * 0.2
+    for i in range(number):
+        comment = Comment(
+            person_post = fake.name(),
+            body = fake.sentence(),
+            reviewed = False,
+            timestamp = fake.data_time_this_year(),
+            email = fake.email(),
+            site = fake.url(),
+            article = Article.query.get(random.randint(1, Article.query.count()))
+        )
+        db.session.add(comment)
+
+        # for admin's comments
+        comment = Comment(
+            person_post = fake.name(),
+            body = fake.sentence(),
+            from_admin = True,
+            reviewed = False,
+            timestamp = fake.data_time_this_year(),
+            email = fake.email(),
+            site = fake.url(),
+            article = Article.query.get(random.randint(1, Article.query.count()))
+        )
+        db.session.add(comment)
+    db.session.commit()
+
+    # for replied comments
+    for i in range(number):
+        comment = Comment(
+            person_post = fake.name(),
+            body = fake.sentence(),
+            reviewed = True,
+            timestamp = fake.data_time_this_year(),
+            email = fake.email(),
+            site = fake.url(),
+            article = Article.query.get(random.randint(1, Article.query.count())),
+            replied = Comment.query.get(random.randint(1, Comment.query.count()))
         )
         db.session.add(comment)
     db.session.commit()
