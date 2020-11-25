@@ -11,6 +11,23 @@ from flask import  request, current_app
 
 manage_blueprint = Blueprint('management', __name__)
 
+try:
+    from urlparse import urlparse, urljoin
+except ImportError:
+    from urllib.parse import urlparse, urljoin
+
+def safe_url(target):
+    ref_url = urlparse(request.host_url)
+    test_url = urlparse(urljoin(request.host_url, target))
+    return test_url.scheme in ('http', 'https') and ref_url.netloc == test_url.netloc
+
+def redirect_to_last_page(default = 'blog.index', **kwargs):
+    for target in request.args.get('next'), request.referrer:
+        if not target:
+            continue
+        if safe_url(target):
+            return redirect(target)
+    return redirect(url_for(default, **kwargs))
 
 @manage_blueprint.route('/article/manage')
 @login_required
@@ -142,7 +159,7 @@ def accept_comment(comment_id):
     comment = Comment.query.get_or_404(comment_id)
     comment.reviewed = True
     db.session.commit()
-    return redirect('.manage_comment')
+    return redirect_to_last_page()
 
 
 @manage_blueprint.route('/comment/<int:comment_id>/delete', methods=['POST'])
@@ -152,7 +169,7 @@ def delete_comment(comment_id):
     db.session.delete(comment)
     db.session.commit()
     flash('Deleted', 'success')
-    return redirect('.manage_comment')
+    return redirect_to_last_page()
 
 
 
