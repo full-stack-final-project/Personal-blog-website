@@ -28,7 +28,7 @@ def manage_article():
 def edit_article(article_id):
     form = article_form()
     article = Article.query.get_or_404(article_id)
-    if form.validate_on_sumbit():
+    if form.validate_on_submit():
         article.title = form.title.data 
         article.body = form.body.data 
         article.post = Category.query.get(form.category.data)
@@ -40,7 +40,7 @@ def edit_article(article_id):
     form.category.data = article.category_id
     return render_template('manage/edit_article.html', form=form)
 
-@manage_blueprint.route('article/<int:article_id>/delete', methods=['POST'])
+@manage_blueprint.route('/article/<int:article_id>/delete', methods=['POST'])
 @login_required
 def delete_article(article_id):
     article = Article.query.get_or_404(article_id)
@@ -65,11 +65,11 @@ def delete_category(category_id):
     flash('Deleted', 'success')
     return render_template('manage/manage_category.html')
 
-@manage_blueprint.route('article/add', methods = ['GET', 'POST'])
+@manage_blueprint.route('/article/add', methods = ['GET', 'POST'])
 @login_required
 def add_article():
     form = article_form()
-    if form.validate_on_sumbit():
+    if form.validate_on_submit():
         title = form.title.data 
         body = form.body.data 
         category = form.category.data    
@@ -80,8 +80,50 @@ def add_article():
         return redirect(url_for('blog.display_article', article_id=article.id))
     return render_template('manage/add_article.html', form=form)
 
+@manage_blueprint.route('/category/new', methods=['GET','POST'])
+@login_required
+def add_category():
+    form = category_form()
+    if form.validate_on_submit():
+        name = form.name.data 
+        category = Category(name=name)
+        db.session.add(category)
+        db.session.commit()
+        flash('Added', 'success')
+        return redirect(url_for('.manage_category'))
+    return render_template('manage/add_category.html', form=form)
 
+@manage_blueprint.route('/category/<int:category_id>/edit', methods=['GET', 'POST'])
+@login_required
+def edit_category(category_id):
+    form = category_form()
+    category = Category.query.get_or_404(category_id)
+    if category.id == 1:
+        flash('This is a default category! Cannot Edit!', 'warning')
+        return render_template('manage/manage_category.html')
+    if form.validate_on_submit():
+        category.name = form.name.data
+        db.session.commit()
+        flash("Edited", 'success')
+        return redirect(url_for('.manage_category'))
+    form.name.data = category.name 
+    return render_template('manage/edit_category.html', form=form)
 
+@manage_blueprint.route('article/<int:article_id>/set-comment')
+@login_required
+def set_comment(article_id):
+    article = Article.query.get_or_404(article_id)
+    if article.comment_open:
+        article.comment_open = False
+    else:
+        article.comment_open = True
+    db.session.commit()
+    return redirect(url_for('.manage_article'))
+
+@manage_blueprint.route('/comment/manage')
+@login_required
+def manage_comment():
+    return "Not yet"
 
 
 
