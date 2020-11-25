@@ -1,8 +1,8 @@
 from flask import Blueprint
 from flask_login import login_user, logout_user
-from flask_login import login_requried, current_user
-from forms import login_form
-from models import Admin
+from flask_login import login_required, current_user
+from blog.forms import login_form
+from blog.models import Admin
 
 authorization_buleprint = Blueprint('authorization', __name__)
 

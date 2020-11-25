@@ -1,6 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, 
-                    SelectField, TextAreaField, ValidationError, HiddenField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, TextAreaField, ValidationError, HiddenField
 from wtforms.validators import DataRequired, Length, Email, Optional, URL
 from flask_ckeditor import CKEditorField
 from blog.models import Category
@@ -23,7 +22,7 @@ class article_form(FlaskForm):
                                 for category in Category.query.order_by(Category.name).all()]
 
 class category_form(FlaskForm):
-    name = StringField('Name', validators = [DataRequired, Length(1, 30)])
+    name = StringField('Name', validators = [DataRequired(), Length(1, 30)])
     submit = SubmitField()
 
     # In category database model, name is unique
@@ -33,7 +32,7 @@ class category_form(FlaskForm):
 
 class comment_form(FlaskForm):
     person_post = StringField('Name', validators = [DataRequired(), Length(1, 30)])
-    email = StringField('Email', validators = [DataRequired(), Email(), Length(1, 255)])
+    #email = StringField('Email', validators = [DataRequired(), Email(), Length(1, 255)])
     site = StringField('Site', validators = [Optional(), URL(), Length(0, 255)])
     body = TextAreaField('Comment', validators = [DataRequired()])
     submit = SubmitField()
