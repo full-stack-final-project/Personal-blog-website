@@ -64,7 +64,7 @@ def delete_article(article_id):
     db.session.delete(article)
     db.session.commit()
     flash('Deleted', 'success')
-    return redirect(url_for('blog.display_article', article_id=article.id))
+    return redirect_to_last_page()
 
 @manage_blueprint.route('/category/manage')
 @login_required
@@ -126,7 +126,7 @@ def edit_category(category_id):
     form.name.data = category.name 
     return render_template('manage/edit_category.html', form=form)
 
-@manage_blueprint.route('article/<int:article_id>/set-comment')
+@manage_blueprint.route('article/<int:article_id>/set_comment', methods=['POST'])
 @login_required
 def set_comment(article_id):
     article = Article.query.get_or_404(article_id)
@@ -135,7 +135,7 @@ def set_comment(article_id):
     else:
         article.comment_open = True
     db.session.commit()
-    return redirect(url_for('.manage_article'))
+    return redirect_to_last_page()
 
 @manage_blueprint.route('/comment/manage')
 @login_required

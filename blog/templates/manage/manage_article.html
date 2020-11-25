@@ -4,9 +4,10 @@
 {% block title %}
 Manage Articles
 {% endblock %}
+
 {% block content %}
 <div class="page-header">
-    <h2 class="display-3">
+    <h5 class="display-3">
         {{pagination.total}} Articles
         <span class="float-right">
             <a class='btn btn-link btn-sm' 
@@ -15,121 +16,113 @@ Manage Articles
                 Add a article
             </a>
         </span>
-    </h2>
+    </h5>
 </div>
-<div class="row">
-    <div class="col-sm-8">
+{% if articles %}
+<table class="table table-borderless">
 
-        {% if articles %}
-        {% for article in articles %}
-        <h3 class="text-primary">
-            <a href="{{ url_for('blog.display_article', article_id = article.id)}}">
-                {{ article.title }}
-            </a>
-        </h3>
-        <p>
-            {{ article.body | striptags | truncate}}
-            <a href=" {{ url_for('blog.display_article', article_id = article.id) }}">
-                Read more
-            </a>
+    <thead>
+        <tr>
+            <th>
+                Article
+            </th>
+            <th>
+                Category
+            </th>
+            <th>
+                Number of Comments
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                operation
+            </th>
+        </tr>
+    </thead>
 
-        </p>
-        <small>
-            <span class="float-right">
-                {{ moment(article.timestamp).format('LL')}}
-            </span>
-            Comments:
-            <a href="{{ url_for('blog.display_article', article_id = article.id)}}#comments">
-                {{ article.comments | length}}
-            </a>&nbsp;&nbsp;
-            Category:
+    {% for article in articles %}
+    <tr>
+        <td>
+            <h3 class="text-primary">
+                <a href="{{ url_for('blog.display_article', article_id = article.id)}}">
+                    {{ article.title }}
+                </a>
+            </h3>
+            <p>
+                {{ article.body | striptags | truncate}}
+                <small>
+                    <a href=" {{ url_for('blog.display_article', article_id = article.id) }}">
+                        Read more
+                    </a>
+                </small>
+            </p>
+            <small>
+        </td>
+
+        <td>
             <a href="{{ url_for('blog.display_category', category_id = article.category.id)}}">
                 {{ article.category.name}}
             </a>
-            </small>
-            <br>
-            <small>
-            <div class="row">
-                <p>&nbsp; </p>
-                <form class="inline" method="post"
-                    action="{{ url_for('.set_comment', article_id=article.id, next=request.full_path) }}">
-                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-                    <button type="submit" class="btn btn-link btn-sm" 
-                            style="color:blue">
-                        {% if article.comment_open %}
-                            Disable
-                        {% else %}
-                            Enable
-                        {% endif %}
-                            Comment
-                    </button>
-                </form>
-                
-                <a class="btn btn-link btn-sm" style="color:blue"
-                    href="{{ url_for('.edit_article', article_id=article.id) }}">
-                    Edit
-                </a>
-                <form class="inline" method="post"
-                    action="{{ url_for('.delete_article', article_id=article.id, next=request.full_path) }}">
-                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-                    <button type="submit" class="btn btn-link btn-sm" 
-                        style="color: red;"
-                        onclick="return confirm('Are you sure?');">
-                        Delete
-                    </button>
-                </form>
 
-            </div>
-        </small>
-        {% if not loop.last %}
+        </td>
 
-        <hr>
-        
-        {% endif %}
-
-        {% endfor %}
-
-        {% else %}
-        <div class="tip">
-
-            <h5>There are no articles yet.</h5>
-            
-            <a href="{{ url_for('management.add_article')}}">
-                Write the first article
+        <td>
+            <a href="{{ url_for('blog.display_article', article_id = article.id)}}#comments">
+                            {{ article.comments | length}}
             </a>
-            
-        </div>
-        {% endif %}
+        </td>
 
-        {% if articles %}
+        <td>
+            {{ moment(article.timestamp).format('LL')}}
+        </td>
 
-        <div class="page-footer">
-            {{ render_pagination(pagination)}}
-        </div>
-
-        {% endif %}
-    </div>
-
-    <div class="col-sm-4 sidebar">
-        {% if categories %}
-            <div class="card mb-3">
-                <div class="card-header">
-                    Categories
+        <td>
+            <small>
+                <div class="row">
+                    <form class="inline" method="POST"
+                        action="{{ url_for('.set_comment', article_id=article.id, next=request.full_path) }}">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                        <button type="submit" class="btn btn-link btn-sm" 
+                                style="color:blue">
+                            {% if article.comment_open %}
+                                Disable
+                            {% else %}
+                                Enable
+                            {% endif %}
+                                Comment
+                        </button>
+                    </form>
+                    
+                    <a class="btn btn-link btn-sm" style="color:blue"
+                        href="{{ url_for('.edit_article', article_id=article.id) }}">
+                        Edit
+                    </a>
+                    <form class="inline" method="post"
+                        action="{{ url_for('.delete_article', article_id=article.id, next=request.full_path) }}">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                        <button type="submit" class="btn btn-link btn-sm" 
+                            style="color: red;"
+                            onclick="return confirm('Are you sure?');">
+                            Delete
+                        </button>
+                    </form>
+    
                 </div>
-                <ul class="list-group list-group-flush">
-                    {% for category in categories %}
-                        <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                            <a href="{{ url_for('blog.display_category', category_id = category.id) }}">
-                                {{ category.name}}
-                            </a>
-                            <span class="badge badge-primary badge-pill">
-                                {{ category.articles | length }}
-                            </span>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        {% endif %}
-    </div>
+            </small>
+        </td>
+       
+    </tr>
+    {% endfor %}
+
+</table>
+<div class="page-footer">
+    {{render_pagination(pagination)}}
+
 </div>
+
+{% else %}
+<h2>No Comments now</h2>
+{% endif %}
+
 {% endblock %}
