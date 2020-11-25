@@ -1,6 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, 
-                    SelectField, TextAreaField, ValidationError, HiddenField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, TextAreaField, ValidationError, HiddenField
 from wtforms.validators import DataRequired, Length, Email, Optional, URL
 from flask_ckeditor import CKEditorField
 from blog.models import Category
@@ -43,8 +42,13 @@ class admin_comment_form(comment_form):
     email = HiddenField()
     site = HiddenField()
 
-class setting_form(FlaskForm):
+class bio_form(FlaskForm):
     name = StringField('Name', validators = [DataRequired(), Length(1, 30)])
-    blog_title = StringField('Blog Title', validators = [DataRequired(), Length(1, 50)])
-    about = CKEditorField('About Page', validators = [DataRequired()])
+    #blog_title = StringField('Blog Title', validators = [DataRequired(), Length(1, 50)])
+    intor = CKEditorField('Introduction', validators = [DataRequired()])
+    skill = StringField('Skill')
+    project_title = StringField('Project title', validators = [Length(0, 50)])
+    project_role = StringField('Your role in this project', validators = [length(0, 30)])
+    project_abstract = CKEditorField('Project introduction')
+
     submit = SubmitField()
