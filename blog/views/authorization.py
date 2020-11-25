@@ -4,6 +4,8 @@ from flask_login import login_required, current_user
 from blog.forms import login_form
 from blog.models import Admin
 from flask import render_template
+from flask import flash, redirect, url_for
+
 
 authorization_buleprint = Blueprint('authorization', __name__)
 
@@ -20,7 +22,7 @@ def login():
 
         administrator = Admin.query.first()
         if administrator:
-            if username == administrator.username and administrator.validate_password(password):
+            if username == administrator.username and administrator.check_password(password):
                 login_user(administrator, remember) 
                 flash('This is your home!', 'success') 
                 return redirect(url_for('blog.index'))

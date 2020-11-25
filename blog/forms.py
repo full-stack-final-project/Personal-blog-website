@@ -32,7 +32,7 @@ class category_form(FlaskForm):
 
 class comment_form(FlaskForm):
     person_post = StringField('Name', validators = [DataRequired(), Length(1, 30)])
-    #email = StringField('Email', validators = [DataRequired(), Email(), Length(1, 255)])
+    email = StringField('Email', validators = [DataRequired(), Email(), Length(1, 255)])
     site = StringField('Site', validators = [Optional(), URL(), Length(0, 255)])
     body = TextAreaField('Comment', validators = [DataRequired()])
     submit = SubmitField()

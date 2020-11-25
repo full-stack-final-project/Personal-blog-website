@@ -1,0 +1,148 @@
+{% from 'bootstrap/pagination.html' import render_pagination  %}
+{% extends 'layout.html' %}
+
+{% block titie %}
+Manage Comments
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+
+    <h2 class="display-3">
+        {{pagination.total}} Comments
+    </h2>
+
+    <ul class="nav nav-pills">
+        <li class="nav-item">
+            <a class="nav-link 
+                {% if request.args.get('filter', 'all') == 'all' %}
+                activate 
+                {% endif %}" 
+                href="{{ url_for('management.manage_comment', filter='all')}}">
+                    All Comments
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link 
+                {% if request.args.get('filter') == 'unreviewed' %}
+                activate 
+                {% endif %}" 
+                href="{{ url_for('management.manage_comment', filter='unreviewed')}}">
+                Unreviewed Comments
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link 
+                {% if request.args.get('filter') == 'admin' %}
+                activate 
+                {% endif %}" 
+                href="{{ url_for('management.manage_comment', filter ='admin')}}">
+                Your Comments
+            </a>
+        </li>
+
+    </ul>
+</div>
+
+{% if comments %}
+<table class="table table-borderless">
+
+    <thead>
+        <tr>
+            <th>
+                From
+            </th>
+            <th>
+                Content
+            </th>
+            <th>
+                Article
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                operation
+            </th>
+        </tr>
+    </thead>
+
+    {% for comment in comments %}
+    <tr>
+        <td>
+            {% if comment.from_admin %} 
+                {{admin.name}}
+            {% else %}
+                {{ comment.person_post}}
+            {% endif %}
+            <br>
+
+            {% if comment.site %}
+                <a href="{{comment.site}}">
+                    {{comment.site}}
+                </a>
+            {% endif %}
+            <br>
+
+            <a href="mailto:{{comment.email}}">
+                {{comment.email}}
+            </a>
+        </td>
+
+        <td>
+            {{comment.body}}
+
+        </td>
+
+        <td>
+            <a href="{{ url_for('blog.display_article', article_id = comment.article_id)}}">
+                {{ Article.query.get_or_404(comment.article_id).title }}
+            </a>
+        </td>
+
+        <td>
+            {{ moment(comment.timestamp).format('LL')}}
+        </td>
+
+        <td>
+            {% if not comment.reviewed %}
+                <form class="inline" method='post'
+                    action="{{url_for('.accept_comment', 
+                        comment_id=comment.id, 
+                        next=request.full_path)}}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+                    <button type="submit" class="btn btn-link btn-sm"
+                            style="color: deepskyblue;">
+                        Accept
+                    </button>
+                </form>
+            {% endif %}
+
+            <form class="inline" method='post' action="{{url_for('.delete_comment', 
+                    comment_id=comment.id, 
+                    next=request.full_path)}}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+
+                <button type="submit" class="btn btn-link btn-sm" style="color: red;">
+                    Delete
+                </button>
+            </form>
+        </td>
+       
+    </tr>
+    {% endfor %}
+
+</table>
+<div class="page-footer">
+    {{render_pagination(pagination)}}
+
+</div>
+
+{% else %}
+<h2>No Comments now</h2>
+{% endif %}
+
+{% endblock %}

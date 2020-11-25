@@ -20,7 +20,7 @@ def manage_article():
         Article.timestamp.desc()).paginate(
         page, per_page=current_app.config['MANAGE_ARTICLE_PER_PAGE'])
     onepage_articles = onepage.items
-    return render_template('manage/manage_article.html', page=page, pagination=onepage, onepage_articles=onepage_articles)
+    return render_template('manage/manage_article.html', page=page, pagination=onepage, articles=onepage_articles)
 
 
 @manage_blueprint.route('/article/<int:article_id>/edit', methods=['POST', 'GET'])
@@ -52,7 +52,7 @@ def delete_article(article_id):
 @manage_blueprint.route('/category/manage')
 @login_required
 def manage_category():
-    return render_template('manage/manage_category.html')
+    return render_template('manage/manage_categories.html')
 
 @manage_blueprint.route('/category/<int:category_id>/delete', methods=['POST'])
 @login_required
@@ -60,10 +60,10 @@ def delete_category(category_id):
     category = Category.query.get_or_404(category_id)
     if category.id == 1:
         flash('This is a default category! Cannot delete!', 'warning')
-        return render_template('manage/manage_category.html')
+        return render_template('manage/manage_categories.html')
     category.delete()
     flash('Deleted', 'success')
-    return render_template('manage/manage_category.html')
+    return render_template('manage/manage_categories.html')
 
 @manage_blueprint.route('/article/add', methods = ['GET', 'POST'])
 @login_required
@@ -123,7 +123,38 @@ def set_comment(article_id):
 @manage_blueprint.route('/comment/manage')
 @login_required
 def manage_comment():
-    return "Not yet"
+    page = request.args.get('page', 1, type=int)
+    per_page = current_app.config['MANAGE_COMMENT_PER_PAGE']
+    if request.args.get('filter', 'all') == "unreviewed":
+        f_comments = Comment.query.filter_by(reviewed=False)
+    elif request.args.get('filter', 'all') == "admin":
+        f_comments = Comment.query.filter_by(from_admin=True)
+    else:
+        f_comments = Comment.query
+    
+    pagination = f_comments.order_by(Comment.timestamp.desc()).paginate(page, per_page=per_page)
+    comments = pagination.items
+    return render_template('manage/manage_comments.html', Article=Article, comments=comments, pagination=pagination)
+
+@manage_blueprint.route('/comment/<int:comment_id>/accept', methods=['POST'])
+@login_required
+def accept_comment(comment_id):
+    comment = Comment.query.get_or_404(comment_id)
+    comment.reviewed = True
+    db.session.commit()
+    return redirect('.manage_comment')
+
+
+@manage_blueprint.route('/comment/<int:comment_id>/delete', methods=['POST'])
+@login_required
+def delete_comment(comment_id):
+    comment = Comment.query.get_or_404(comment_id)
+    db.session.delete(comment)
+    db.session.commit()
+    flash('Deleted', 'success')
+    return redirect('.manage_comment')
+
+
 
 
 

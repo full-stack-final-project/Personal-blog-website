@@ -3,6 +3,7 @@ from blog.extensions import db
 from blog.models import Admin, Category, Comment, Article
 from sqlalchemy.exc import IntegrityError
 
+
 import random
 
 fake = Faker()
@@ -16,7 +17,7 @@ def fake_admin():
                     I will share my stories and some articles in this blog.',
         site_title = "Jason's Personal blog"
     )
-    admin.set_password('webdev')
+    admin.set_password('fullstack')
     db.session.add(admin)
     db.session.commit()
 

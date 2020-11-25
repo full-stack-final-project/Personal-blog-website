@@ -1,7 +1,9 @@
 {% extends 'layout.html' %}
 {% from 'bootstrap/form.html' import render_form %}
 
-{% block title %}Add a New Article{% endblock %}
+{% block title %}
+Add a New Article
+{% endblock %}
 
 {% block content %}
     <div class="page-header">
@@ -12,5 +14,6 @@
 
 {% block scripts %}
     {{ super() }}
-    <script type="text/javascript" src="{{ url_for('static', filename='ckeditor5/src/ckeditor.js') }}"></script>
+    <script src="//cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+    {{ ckeditor.config(name='body')}}
 {% endblock %}

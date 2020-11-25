@@ -37,25 +37,22 @@
                         <ul class="nav navbar-nav navbar-right">
                             {% if current_user.is_authenticated %}
                                 <li class="nav-item dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-togger="dropdown" role="button" 
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" 
                                         aria-haspopup="true" aria-expanded="false">
                                         New <span class="caret"></span>
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{ url_for('admin.new_article') }}">
+                                        <a class="dropdown-item" href="{{ url_for('management.add_article') }}">
                                             Article
                                         </a>
-                                        <a class="dropdown-item" href="{{ url_for('admin.new_category') }}">
+                                        <a class="dropdown-item" href="{{ url_for('management.add_category') }}">
                                             Category
-                                        </a>
-                                        <a class="dropdown-item" href="{{ url_for('admin.new_link') }}">
-                                            Link
                                         </a>
                                     </div>
                                 </li>
 
                                 <li class="nav-item dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-togger="dropdown" role="button"
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
                                         aria-haspopup="true" aria-expanded="false">
                                         Manage <span class="caret"></span>
                                         {% if unread_comments %}
@@ -65,13 +62,13 @@
                                         {% endif %}
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{ url_for('admin.manage_article') }}">
+                                        <a class="dropdown-item" href="{{ url_for('management.manage_article') }}">
                                             Article
                                         </a>
-                                        <a class="dropdown-item" href="{{ url_for('admin.manage_category') }}">
+                                        <a class="dropdown-item" href="{{ url_for('management.manage_category') }}">
                                             Category
                                         </a>
-                                        <a class="dropdown-item" href="{{ url_for('admin.manage_comment') }}">
+                                        <a class="dropdown-item" href="{{ url_for('management.manage_comment') }}">
                                             Comment
                                             {% if unread_comments %}
                                                 <span class="badge badge-success"> 
@@ -82,12 +79,14 @@
                                         
                                     </div>
                                 </li>
-                                {{ render_nav_item('admin.settings', 'Settings')}}
-                                <a href="{{ url_for('authorization.logout', next = request.full_path )}}">
+                                {{ render_nav_item('management.add_article', 'Settings')}}
+                                <a href="{{ url_for('authorization.logout', next = request.full_path )}}" 
+                                        style="color: white;">
                                     Logout
                                 </a>
                             {% else %}
-                                <a href="{{ url_for('authorization.login', next = request.full_path )}}">
+                                <a href="{{ url_for('authorization.login', next = request.full_path )}}"
+                                        style="color: white;">
                                     Login
                                 </a>
                             {% endif %}
