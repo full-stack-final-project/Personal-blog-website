@@ -1,9 +1,13 @@
 import os
 from flask import Blueprint, render_template
-
-from blog.extensions import db
+from flask_login import login_user, logout_user
+from flask_login import login_required, current_user
 from blog.forms import setting_form, article_form, category_form
+from blog.extensions import db
+
 from blog.models import Article, Category, Comment
+from flask import render_template, flash, redirect, url_for
+from flask import  request, current_app
 
 manage_blueprint = Blueprint('management', __name__)
 
@@ -61,7 +65,7 @@ def delete_category(category_id):
     flash('Deleted', 'success')
     return render_template('manage/manage_category.html')
 
-@manage_blueprint.route('article/add', methods['GET', 'POST'])
+@manage_blueprint.route('article/add', methods = ['GET', 'POST'])
 @login_required
 def add_article():
     form = article_form()

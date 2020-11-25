@@ -11,10 +11,10 @@ fake = Faker()
 def fake_admin():
     admin = Admin(
         username = 'admin',
-        name = fake.name(),
+        name = 'Jason',
         about = 'This is my first personal blog which is created by Junhao and Yihua. \
                     I will share my stories and some articles in this blog.',
-        site_title = name + "'s Personal blog"
+        site_title = "Jason's Personal blog"
     )
     admin.set_password('webdev')
     db.session.add(admin)
@@ -25,7 +25,7 @@ def fake_categories(count = 10):
     category = Category(name='Default') 
     db.session.add(category) 
     for i in range(count):
-        category = Category(name = fake.work())
+        category = Category(name = fake.word())
         db.session.add(category)
         try:
             db.session.commit()
@@ -39,7 +39,7 @@ def fake_articles(count = 100):
             title = fake.sentence(),
             body = fake.text(3000),
             category = Category.query.get(random.randint(1, Category.query.count())),
-            timestamp = fake.data_time_this_year()
+            timestamp = fake.date_time_this_year()
         )
         db.session.add(article)
     db.session.commit()
@@ -52,7 +52,7 @@ def fake_comments(count = 300):
             person_post = fake.name(),
             body = fake.sentence(),
             reviewed = True,
-            timestamp = fake.data_time_this_year(),
+            timestamp = fake.date_time_this_year(),
             email = fake.email(),
             site = fake.url(),
             article = Article.query.get(random.randint(1, Article.query.count()))
@@ -60,13 +60,13 @@ def fake_comments(count = 300):
         db.session.add(comment)
 
     # for unreviewed comments
-    number = count * 0.2
+    number = int(count * 0.2)
     for i in range(number):
         comment = Comment(
             person_post = fake.name(),
             body = fake.sentence(),
             reviewed = False,
-            timestamp = fake.data_time_this_year(),
+            timestamp = fake.date_time_this_year(),
             email = fake.email(),
             site = fake.url(),
             article = Article.query.get(random.randint(1, Article.query.count()))
@@ -79,7 +79,7 @@ def fake_comments(count = 300):
             body = fake.sentence(),
             from_admin = True,
             reviewed = False,
-            timestamp = fake.data_time_this_year(),
+            timestamp = fake.date_time_this_year(),
             email = fake.email(),
             site = fake.url(),
             article = Article.query.get(random.randint(1, Article.query.count()))
@@ -93,7 +93,7 @@ def fake_comments(count = 300):
             person_post = fake.name(),
             body = fake.sentence(),
             reviewed = True,
-            timestamp = fake.data_time_this_year(),
+            timestamp = fake.date_time_this_year(),
             email = fake.email(),
             site = fake.url(),
             article = Article.query.get(random.randint(1, Article.query.count())),
