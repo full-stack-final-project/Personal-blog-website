@@ -3,6 +3,7 @@ from flask_login import login_user, logout_user
 from flask_login import login_required, current_user
 from blog.forms import login_form
 from blog.models import Admin
+from flask import render_template
 
 authorization_buleprint = Blueprint('authorization', __name__)
 

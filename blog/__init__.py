@@ -2,7 +2,7 @@ import os
 
 from blog.views.management import manage_blueprint
 from blog.views.authorization import authorization_buleprint
-from blog.views.blogs import blogs_blueprint
+from blog.views.blog import blog_blueprint
 from blog.config import config
 from blog.extensions import db, csrf, bootstrap
 from blog.models import Admin, Article, Category, Comment
@@ -16,7 +16,7 @@ import click
 from blog.extensions import login_manager, ckediter
 
 def register_blueprints(app):
-    app.register_blueprint(blogs_blueprint)
+    app.register_blueprint(blog_blueprint)
     app.register_blueprint(authorization_buleprint, url_prefix='/authorization')
     app.register_blueprint(manage_blueprint, url_prefix='/management')
     

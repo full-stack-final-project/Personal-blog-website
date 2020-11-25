@@ -10,7 +10,7 @@
         <h1>
             {{article.title}}
             <span class="float-right">
-                {% if current_user.is_authenicated %}
+                {% if current_user.is_authenticated %}
                     <a 
                     class="btn btn-info btn-sm"
                     href="{{url_for('admin.edit_article', article_id = article.id)}}">Edit
@@ -28,7 +28,7 @@
         </h1>
         <small>
             Category -- 
-            <a href="{{ url_for('.show_category', category_id = article.category.id)}}">
+            <a href="{{ url_for('.display_category', category_id = article.category.id)}}">
                 {{ article.category.name}}
             </a><br>
             {{ moment(article.timestamp).format('LL')}}
@@ -36,7 +36,7 @@
     </div>
 
     <div class="row">
-        <div class="col-8">
+        <div class="col-sm-8">
             {{ article.body | safe}}
             <hr>
             <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target=".articleLinkModal">
@@ -59,7 +59,7 @@
                         <div class="modal-body">
                             <div class="form=group">
                                 <input type="text" class="form-control"
-                                    value="{{ url_for('.show_article', article_id = article.id, _external = True)}}" 
+                                    value="{{ url_for('.display_article', article_id = article.id, _external = True)}}" 
                                     readonly>
                             </div>
                         </div>
@@ -70,11 +70,11 @@
                 <h3>
                     {{ pagination.total}} Comments
                     <small>
-                        <a href="{{ url_for('.show_article', article_id = article.id, page = pagination.pages or 1)}}#comments">
+                        <a href="{{ url_for('.display_article', article_id = article.id, page = pagination.pages or 1)}}#comments">
                             latest
                         </a>
                     </small>
-                    {% if current_user.is_authenicated %}
+                    {% if current_user.is_authenticated %}
                         <form action="{{ url_for('admin.set_comment', article_id = article.id, next = request.full_path)}}"
                             class="float-right" method="POST">
                             <input type="hidden" name="csrf-token" value="{{ csrf_token()}}" />
@@ -130,7 +130,7 @@
                                         class="btn btn-light btn-sm">
                                         Reply
                                     </a>
-                                    {% if current_user.is_authenicated %}
+                                    {% if current_user.is_authenticated %}
                                         <a class="btn btn-light btn-sm" href="mailto:{{ comment.email}}">
                                             Email
                                         </a>
@@ -161,7 +161,7 @@
                     Reply to <strong>
                         {{ request.args.get('person_post')}}
                     </strong>:
-                    <a href="{{ url_for('.show_article', article_id = article.id)}}" class="float-right">
+                    <a href="{{ url_for('.display_article', article_id = article.id)}}" class="float-right">
                         Cancel
                     </a>
                 </div>
@@ -176,7 +176,7 @@
                 </div>
             {% endif %}
         </div>
-        <div class="col-4 sidebar">
+        <div class="col-sm-4 sidebar">
             {% if categories %}
             <div class="card mb-3">
                 <div class="card-header">
@@ -185,7 +185,7 @@
                 <ul class="list-group list-group-flush">
                     {% for category in categories %}
                         <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                            <a href="{{ url_for('blog.show_category', category_id = category.id) }}">
+                            <a href="{{ url_for('blog.display_category', category_id = category.id) }}">
                                 {{ category.name}}
                             </a>
                             <span class="badge badge-primary badge-pill">

@@ -2,7 +2,7 @@ import os
 from flask import Blueprint, render_template
 from flask_login import login_user, logout_user
 from flask_login import login_required, current_user
-from blog.forms import setting_form, article_form, category_form
+from blog.forms import bio_form, article_form, category_form
 from blog.extensions import db
 
 from blog.models import Article, Category, Comment

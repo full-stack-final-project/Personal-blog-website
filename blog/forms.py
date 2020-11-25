@@ -48,7 +48,7 @@ class bio_form(FlaskForm):
     intor = CKEditorField('Introduction', validators = [DataRequired()])
     skill = StringField('Skill')
     project_title = StringField('Project title', validators = [Length(0, 50)])
-    project_role = StringField('Your role in this project', validators = [length(0, 30)])
+    project_role = StringField('Your role in this project', validators = [Length(0, 30)])
     project_abstract = CKEditorField('Project introduction')
 
     submit = SubmitField()
