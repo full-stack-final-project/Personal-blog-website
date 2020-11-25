@@ -7,7 +7,8 @@
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
             <title>
-                {% block title %}{% endblock title%} - {{admin.blog_title | default('Blog Title')}}
+                {% block title %}
+                {% endblock title%} - {{admin.blog_title | default('Blog Title')}}
             </title>
             <link rel="stylesheet" 
                   href="{{ url_for('static', filename='css/%s.min.css' % request.cookies.get('theme', 'perfect_blue'))}}"
@@ -19,12 +20,14 @@
 
     <body>
         {% block nav%}
-            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-primary text-uppercase">
                 <div class="container">
                     <a class="navbar-brand" href="{{ url_for('blog.index')}}">
-                        {{ admin.blog_title}}
+                        {{ admin.site_title}}
                     </a>
-                    <button class="navbar-toggler" type="button" data-togger="collapse" data-target="#navbarColor01"
+                    <!-- navbar-toggler text-uppercase font-weight-bold rounded -->
+                    <button class="navbar-toggler" type="button" 
+                            data-toggle="collapse" data-target="#navbarColor01"
                             aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
