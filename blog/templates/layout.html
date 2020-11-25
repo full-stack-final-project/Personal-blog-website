@@ -22,9 +22,9 @@
             <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
                 <div class="container">
                     <a class="navbar-brand" href="{{ url_for('blog.index')}}">
-                        {{ admin.blog_title}}
+                        {{ admin.site_title}}
                     </a>
-                    <button class="navbar-toggler" type="button" data-togger="collapse" data-target="#navbarColor01"
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
                             aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -81,12 +81,12 @@
                                 </li>
                                 {{ render_nav_item('management.add_article', 'Settings')}}
                                 <a href="{{ url_for('authorization.logout', next = request.full_path )}}" 
-                                        style="color: white;">
+                                    style="color: white;">
                                     Logout
                                 </a>
                             {% else %}
                                 <a href="{{ url_for('authorization.login', next = request.full_path )}}"
-                                        style="color: white;">
+                                    style="color: white;">
                                     Login
                                 </a>
                             {% endif %}

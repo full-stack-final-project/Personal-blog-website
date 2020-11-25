@@ -50,7 +50,7 @@ Manage Articles
             <br>
             <small>
             <div class="row">
-                <p>&nbsp; &nbsp;</p>
+                <p>&nbsp; </p>
                 <form class="inline" method="post"
                     action="{{ url_for('.set_comment', article_id=article.id, next=request.full_path) }}">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
@@ -64,6 +64,7 @@ Manage Articles
                             Comment
                     </button>
                 </form>
+                
                 <a class="btn btn-link btn-sm" style="color:blue"
                     href="{{ url_for('.edit_article', article_id=article.id) }}">
                     Edit
