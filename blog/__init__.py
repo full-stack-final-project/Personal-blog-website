@@ -15,10 +15,6 @@ from flask_login import current_user
 import click
 from blog.extensions import login_manager, ckediter
 
-
-
-
-
 def register_blueprints(app):
     app.register_blueprint(blogs_blueprint)
     app.register_blueprint(authorization_buleprint, url_prefix='/authorization')
@@ -95,6 +91,7 @@ def register_commands(app):
 def register_template(app):
     @app.context_processor
     def make_template_context():
+        
         admin = Admin.query.first()
         categories = Category.query.order_by(Category.name).all()
         if current_user.is_authenticated:
@@ -108,6 +105,7 @@ def register_template(app):
 
 
 def create_app(config_name=None):
+    
     if config_name is None:
         config_name = os.getenv('FLASK_CONFIG', 'development')
 
