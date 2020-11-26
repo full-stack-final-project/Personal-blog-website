@@ -7,7 +7,7 @@ Manage Articles
 
 {% block content %}
 <div class="page-header">
-    <h5 class="display-3">
+    <h3 >
         {{pagination.total}} Articles
         <span class="float-right">
             <a class='btn btn-link btn-sm' 
@@ -16,7 +16,7 @@ Manage Articles
                 Add a article
             </a>
         </span>
-    </h5>
+    </h3>
 </div>
 {% if articles %}
 <table class="table table-borderless">
@@ -36,7 +36,7 @@ Manage Articles
                 Date
             </th>
             <th>
-                operation
+                Operation
             </th>
         </tr>
     </thead>
@@ -44,19 +44,19 @@ Manage Articles
     {% for article in articles %}
     <tr>
         <td>
-            <h3 class="text-primary">
+            <h4 class="text-primary">
                 <a href="{{ url_for('blog.display_article', article_id = article.id)}}">
                     {{ article.title }}
                 </a>
-            </h3>
-            <p>
+            </h4>
+            <!-- <small class="">
                 {{ article.body | striptags | truncate}}
                 <small>
                     <a href=" {{ url_for('blog.display_article', article_id = article.id) }}">
                         Read more
                     </a>
                 </small>
-            </p>
+            </small> -->
             <small>
         </td>
 
@@ -74,7 +74,8 @@ Manage Articles
         </td>
 
         <td>
-            {{ moment(article.timestamp).format('LL')}}
+            <small>{{ moment(article.timestamp).format('LL')}}</small>
+            
         </td>
 
         <td>
