@@ -86,7 +86,7 @@ def reply_comment(comment_id):
         flash('Cannot comment this article')
         return redirect(url_for('.display_article', article_id=comment.article.id))
     return redirect( url_for('.display_article', article_id=comment.article.id, 
-        reply=comment_id, author=comment.author) + '#comment-form')                                        
+        reply=comment_id, person_post=comment.person_post) + '#comment-form')                                        
         
 
 
