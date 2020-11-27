@@ -1,101 +1,87 @@
-{% from 'bootstrap/pagination.html' import render_pagination %}
-{% extends 'layout.html' %}
 
-{% block title %}
-    Home
-{% endblock %}
-
-
-{% block content%}
-<div class="page-header ml-1">
-    <h1>
-        <br>
-        {{ admin.site_title | default('Blog Title')}}
-    </h1>
-
-</div>
-{% if articles %}
-
-    <article id="articles" class="container articles">
-        <div class="row tags-posts ">
-
-            {% for article in articles %}
-
-            <div class="article tag-post col-4 s4 m2 l1" data-aos="zoom-in">
-                <div class="card">
-                    <a href="{{ url_for('.display_article', article_id = article.id)}}">
-                        <div class="card-image tag-image ml-1">
-
-                            <img src={{ url_for('static', filename='background.jpg') }} 
-                                class="responsive-img">
-
-                            <span class="card-title ">
-                                {{ article.title }}
-                            </span>
+    <!DOCTYPE html>
+    <html lang="en">
+        {% block head%}
+        <head>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>
+       
+    </title>
+    
+    
+        
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/academic.css') }}" type="text/css">
+    <link href="{{url_for('static', filename = 'css/cover.css')}}" rel="stylesheet" type="text/css">
+    {% endblock head%}
+        </head>
+    
+        <body>
+    {% block content %}
+            
+        <div class="site-wrapper">
+    
+            <div class="site-wrapper-inner">
+    
+                <div class="cover-container">
+    
+                    <div class="masthead clearfix">
+                        
+                        <div class="inner">
+                            
+                            
+                            <nav>
+                                <ul class="nav masthead-nav">
+                                    <li class="active"><a href="/blog/index/">HOME</a></li>
+                                    <li><a href="/blog/list/">BLOG</a></li>
+                                    
+                                    <li><a href="/blog/aboutme/">ABOUT</a></li>
+                                </ul>
+                            </nav>
+    
                         </div>
-                    </a>
-                    <div class="card-content article-content ml-1">
-                        <div class="summary block-with-text">
-
-                            {{ article.body | striptags | truncate}}
-
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                {{ article.timestamp}}
-                            </span>
-                            <span class="publish-author">
-
-                                <i class="fa fa-bookmark fa-fw icon-category"></i>
-
-                                <a href="{{ url_for('.display_category', category_id = article.category.id)}}"
-                                    class="post-category" target="_blank">
-                                    {{ article.category.name}}
-                                </a>
-                            </span>
+    
+                    </div>
+    
+                    <div class="inner cover">
+                        <h1 class="cover-heading">Welcome to my site!</h1>
+                        <p class="lead">
+                            Stay hungry. Stay foolish.<br>
+                        </p>
+                        <p class="lead">
+                            <a href="/blog/list/" class="btn btn-lg btn-default">Read more</a>
+                        </p>
+                    </div>
+    
+                    <div class="mastfoot">
+                        <div class="inner">
+                            <p></a></p>
+                            <p>CopyRight &copy 2020</p>
                         </div>
                     </div>
+    
                 </div>
-
+    
             </div>
-            {% endfor %}
+    
         </div>
-    </article>
-    {% else %}
-    <div class="tip">
-        <h5>There are no articles yet.</h5>
-        {% if current_user.is_authenticated %}
-        <a href="{{ url_for('management.add_article')}}">
-            Write the first article
-        </a>
-        {% endif %}
-
-        {% endif %}
-        {% if articles %}
-        <div class="page-footer p   l-6">
-            {{ render_pagination(pagination)}}
-        </div>
-        {% endif %}
-    </div>
-    <div class="col-12 sidebar">
-        {% if categories %}
-        <div class="card mb-3">
-            <div class="card-header">
-                Categories
-            </div>
-            <ul class="list-group list-group-flush">
-                {% for category in categories %}
-                <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                    <a href="{{ url_for('blog.display_category', category_id = category.id) }}">
-                        {{ category.name}}
-                    </a>
-                    <span class="badge badge-primary badge-pill">
-                        {{ category.articles | length }}
-                    </span>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-        {% endif %}
-    </div>
-{% endblock %}
+    
+    
+            <!-- common JavaScript
+            ================================================== -->
+            <!-- Placed at the end of the document so the pages load faster -->
+            <script src="/static/js/bootstrap/jquery.min.js"></script>
+            <script src="/static/js/bootstrap/bootstrap.min.js"></script>
+            <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+            <script src="/static/js/bootstrap/assets/ie10-viewport-bug-workaround.js"></script>
+            
+        
+            
+    
+            {% endblock %}
+        </body>
+    
+    </html>
+    
