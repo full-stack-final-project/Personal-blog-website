@@ -1,6 +1,6 @@
 $(function () {
     function render_time() {
-        return moment($(this).data('timestamp')).format('lll')
+        return $(this).data('timestamp')
     }
     $('[data-toggle="tooltip"]').tooltip(
         {title: render_time}

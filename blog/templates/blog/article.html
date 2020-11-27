@@ -120,7 +120,7 @@
                                     </h5>
                                     <small data-toggle="tooltip" data-placement="top" data-delay="500"
                                         data-timestamp="{{ comment.timestamp.strftime('%Y-%m-%dT%H:%M:%SZ')}}">
-                                        {{ moment(comment.timestamp).fromNow()}}
+                                        {{ comment.timestamp.fromNow()}}
                                     </small>
                                 </div>
                                 {% if comment.replied %}
