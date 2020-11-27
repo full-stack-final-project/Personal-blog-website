@@ -9,5 +9,5 @@ def send_mail():
 def send_new_comment_reminding(blog):
     send_mail()
 
-def reply_comment(comment):
+def send_reply_comment(comment):
     send_mail()

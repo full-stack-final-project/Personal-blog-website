@@ -1,11 +1,10 @@
 from flask import Blueprint
-from blog.emails import send_new_comment_reminding, reply_comment
 from blog.extensions import db
 from blog.models import Article, Category, Comment
 from blog.forms import comment_form, admin_comment_form
 from flask import render_template, flash, redirect, url_for
 from flask import request, current_app
-from blog.emails import reply_comment, send_new_comment_reminding
+from blog.emails import send_reply_comment, send_new_comment_reminding
 
 from flask_login import current_user
 from blog.views.management import redirect_to_last_page
@@ -49,21 +48,21 @@ def display_article(article_id):
         form = admin_comment_form()
         form.person_post.data = current_user.name
         form.email.data = current_app.config['MAIL_ADDRESS']
-        form_admin = True
+        from_admin = True
         reviewed = True 
         form.site.data = url_for('.index')
     else:
         form = comment_form()
-        form_admin = False
+        from_admin = False
         reviewed = False
 
     if form.validate_on_submit():
-        author = form.author.data 
+        person_post = form.person_post.data 
         email = form.email.data    
         body = form.body.data 
         site = form.site.data 
         comment = Comment(
-            author=author,
+            person_post=person_post,
             email=email,
             site=site,
             body=body,           
@@ -73,16 +72,16 @@ def display_article(article_id):
         )
         reply_id = request.args.get('reply')
         if reply_id:
-            reply_comment = Comment.query.get_or_404(reply_id)
-            comment.reply_id = reply_comment
-            reply_comment(reply_comment)
+            replied_comment = Comment.query.get_or_404(reply_id)
+            comment.replied = replied_comment
+            send_reply_comment(replied_comment)
         db.session.add(comment)
         db.session.commit()
 
         if current_user.is_authenticated:
-            flash('Displyed')
+            flash('Displayed')
         else:
-            flash('Will display after accept', 'success')
+            flash('Will display after being accepted', 'success')
             send_new_comment_reminding(article)
         return redirect(url_for('.display_article', article_id=article_id))
     return render_template('blog/article.html', article=article, 
@@ -96,7 +95,7 @@ def reply_comment(comment_id):
     if not comment.article.comment_open:
         flash('Cannot comment this article')
         return redirect(url_for('.display_article', article_id=comment.article.id))
-    return redirect( url_for('.display_article', article_id=comment.article.id, 
+    return redirect( url_for('.display_article', article_id=comment.article_id, 
         reply=comment_id, person_post=comment.person_post) + '#comment-form')                                        
         
 
