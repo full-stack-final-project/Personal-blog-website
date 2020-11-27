@@ -40,7 +40,8 @@ def fake_articles(count = 100):
             title = fake.sentence(),
             body = fake.text(3000),
             category = Category.query.get(random.randint(1, Category.query.count())),
-            timestamp = fake.date_time_this_year()
+            timestamp = fake.date_time_this_year(),
+            count_read = random.randint(1,10000)
         )
         db.session.add(article)
     db.session.commit()
@@ -79,7 +80,7 @@ def fake_comments(count = 300):
             person_post = fake.name(),
             body = fake.sentence(),
             from_admin = True,
-            reviewed = False,
+            reviewed = True,
             timestamp = fake.date_time_this_year(),
             email = fake.email(),
             site = fake.url(),

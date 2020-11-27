@@ -12,7 +12,7 @@ class BaseConfig(object):
     MAIL_PASSWORD = os.getenv('MAIL_PASSWORD')
     #MAIL_SENDER = ('Blog Admin', MAIL_ADDERSS)
 
-    ARTICLE_PER_PAGE = 10
+    ARTICLE_PER_PAGE = 9
     MANAGE_ARTICLE_PER_PAGE = 10
     MANAGE_COMMENT_PER_PAGE = 20
 

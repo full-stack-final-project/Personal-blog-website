@@ -16,9 +16,18 @@ blog_blueprint = Blueprint('blog', __name__)
 def index():
     page = request.args.get('page', 1, type = int)
     per_page = current_app.config['ARTICLE_PER_PAGE']
-    pagination = Article.query.order_by(Article.timestamp.desc()).paginate(page, per_page = per_page)
+    
+    pagination = Article.query.order_by(Article.count_read.desc()).paginate(page, per_page = per_page)
     articles = pagination.items
     return render_template('blog/index.html', pagination = pagination, articles = articles)
+
+@blog_blueprint.route('/display')
+def display():
+    page = request.args.get('page', 1, type = int)
+    per_page = current_app.config['ARTICLE_PER_PAGE']
+    pagination = Article.query.order_by(Article.timestamp.desc()).paginate(page, per_page = per_page)
+    articles = pagination.items
+    return render_template('blog/display.html', pagination = pagination, articles = articles)
 
 @blog_blueprint.route('/about')
 def about():
@@ -28,6 +37,8 @@ def about():
 @blog_blueprint.route('/article/<int:article_id>', methods=['GET', 'POST'])
 def display_article(article_id):
     article = Article.query.get_or_404(article_id)
+    article.count_read = article.count_read + 1
+    db.session.commit()
     page = request.args.get('page', 1, type=int)
     per_page = current_app.config['MANAGE_COMMENT_PER_PAGE']
     pagination = Comment.query.with_parent(article).filter_by(

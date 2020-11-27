@@ -45,8 +45,10 @@ class Article(db.Model):
     category = db.relationship('Category', back_populates = 'articles')
     timestamp = db.Column(db.DateTime, default = datetime.utcnow, index = True)
     comment_open = db.Column(db.Boolean, default = True)
+    count_read = db.Column(db.Integer)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
     comments = db.relationship('Comment', back_populates = 'article', cascade = 'all, delete-orphan')
+    
 
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key = True)
