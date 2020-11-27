@@ -13,7 +13,7 @@ from flask_sqlalchemy import get_debug_queries
 from flask import Flask, render_template
 from flask_login import current_user
 import click
-from blog.extensions import login_manager, ckediter
+from blog.extensions import login_manager, ckeditor
 
 def register_blueprints(app):
     app.register_blueprint(blog_blueprint)
@@ -25,7 +25,7 @@ def register_extensions(app):
     db.init_app(app)
     csrf.init_app(app)
     bootstrap.init_app(app)
-    ckediter.init_app(app)
+    ckeditor.init_app(app)
     mail.init_app(app)
     moment.init_app(app)
     login_manager.init_app(app)

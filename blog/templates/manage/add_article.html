@@ -10,10 +10,12 @@ Add a New Article
         <h1>Add a New Article</h1>
     </div>
     {{ render_form(form) }}
+    {{ ckeditor.load()}}
+    {{ ckeditor.config(name = 'body')}}
 {% endblock %}
 
 {% block scripts %}
     {{ super() }}
     <script src="//cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
-    {{ ckeditor.config(name='body')}}
+    
 {% endblock %}

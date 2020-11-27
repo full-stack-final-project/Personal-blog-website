@@ -8,7 +8,7 @@ from flask_mail import Mail
 
 
 
-ckediter = CKEditor()
+ckeditor = CKEditor()
 db = SQLAlchemy()
 bootstrap = Bootstrap()
 csrf = CSRFProtect()
