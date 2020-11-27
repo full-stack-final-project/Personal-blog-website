@@ -118,3 +118,43 @@ body {
 	color: rgba(255, 255, 255, .5);
 	line-height: 0.9;
 }
+
+@media (min-width: 768px) {
+	.masthead-brand {
+	 float: left;
+	}
+   
+	.masthead-nav {
+	 float: left;
+	}
+   }
+   
+   @media (min-width: 768px) {
+	.masthead {
+	 position: fixed;
+	 top: 0;
+	}
+   
+	.mastfoot {
+	 position: fixed;
+	 bottom: 0;
+	}
+   
+	.site-wrapper-inner {
+	 vertical-align: middle;
+	}
+   
+	.masthead,
+	.mastfoot,
+	.cover-container {
+	 width: 100%;
+	}
+   }
+   
+   @media (min-width: 992px) {
+	.masthead,
+	.mastfoot,
+	.cover-container {
+	 width: 700px;
+	}
+   }
