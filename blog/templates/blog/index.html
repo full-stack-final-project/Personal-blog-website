@@ -1,88 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+{% block head%}
 
-    <!DOCTYPE html>
-    <html lang="en">
-        {% block head%}
-        <head>
-            <meta charset="utf-8">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>
-       
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+
     </title>
-    
-    
-        
+
+
+
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/academic.css') }}" type="text/css">
     <link href="{{url_for('static', filename = 'css/cover.css')}}" rel="stylesheet" type="text/css">
     {% endblock head%}
-        </head>
-    
-        <body>
+</head>
+
+<body>
     {% block content %}
-            
-        <div class="site-wrapper">
-    
-            <div class="site-wrapper-inner">
-    
-                <div class="cover-container">
-    
-                    <div class="masthead clearfix">
-                        
-                        <div class="inner">
-                            
-                            
-                            <nav>
-                                <ul class="nav masthead-nav">
-                                    <li class="active"><a href="{{url_for('.index')}}">HOME</a></li>
-                                    <li><a href="{{url_for('.recommand')}}">RECOMMAND</a></li>
-                                    <li><a href="{{url_for('.display')}}">BLOG</a></li>
-                                    
-                                    <li><a href="{{url_for('.about')}}">ABOUT</a></li>
-                                </ul>
-                            </nav>
-    
-                        </div>
-    
+
+    <div class="site-wrapper">
+
+        <div class="site-wrapper-inner">
+
+            <div class="cover-container">
+
+                <div class="masthead clearfix">
+
+                    <div class="inner">
+
+
+                        <nav>
+                            <ul class="nav masthead-nav">
+                                <li class="active"><a href="{{url_for('.index')}}">HOME</a></li>
+                                <li><a href="{{url_for('.recommand')}}">RECOMMAND</a></li>
+                                <li><a href="{{url_for('.display')}}">BLOG</a></li>
+
+                                <li><a href="{{url_for('.about')}}">ABOUT</a></li>
+                            </ul>
+                        </nav>
+
                     </div>
-    
-                    <div class="inner cover">
-                        <h1 class="cover-heading">Welcome to my site!</h1>
-                        <p class="lead">
-                            Stay hungry. Stay foolish.<br>
-                        </p>
-                        <p class="lead">
-                            <a href="{{url_for('blog.about')}}" class="btn btn-lg btn-default">Read more</a>
-                        </p>
-                    </div>
-    
-                    <div class="mastfoot">
-                        <div class="inner">
-                            <p></a></p>
-                            <p>CopyRight &copy 2020</p>
-                        </div>
-                    </div>
-    
+
                 </div>
-    
+
+                <div class="inner cover">
+                    <h1 class="cover-heading">Welcome to my site!</h1>
+                    <p class="lead">
+                        Stay hungry. Stay foolish.<br>
+                    </p>
+                    <p class="lead">
+                        <a href="{{url_for('blog.about')}}" class="btn btn-lg btn-default">Read more</a>
+                    </p>
+                </div>
+
+                <div class="mastfoot">
+                    <div class="inner">
+                        <p></a></p>
+                        <p>CopyRight &copy 2020</p>
+                    </div>
+                </div>
+
             </div>
-    
+
         </div>
-    
-    
-            <!-- common JavaScript
+
+    </div>
+
+
+    <!-- common JavaScript
             ================================================== -->
-            <!-- Placed at the end of the document so the pages load faster -->
-            <script src="/static/js/bootstrap/jquery.min.js"></script>
-            <script src="/static/js/bootstrap/bootstrap.min.js"></script>
-            <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-            <script src="/static/js/bootstrap/assets/ie10-viewport-bug-workaround.js"></script>
-            
-        
-            
-    
-            {% endblock %}
-        </body>
-    
-    </html>
-    
+    <script type="text/javascript" src="{{ url_for('static', filename = 'js/jquery-3.2.1.slim.min.js') }}"></script>
+    <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+        integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous">
+    </script>
+
+    {% endblock %}
+</body>
+
+</html>
