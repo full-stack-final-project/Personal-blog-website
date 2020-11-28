@@ -13,18 +13,18 @@
     </h1>
     <ul class="float-right">
         {% if current_user.is_authenticated %}
-        <a class="btn btn-link btn-sm" href="{{url_for('management.edit_article', article_id = article.id)}}">
+        <a class="btn btn-link" href="{{url_for('management.edit_article', article_id = article.id)}}">
             Edit
         </a>
         <form class="inline" method="POST"
             action="{{ url_for('management.delete_article', article_id = article.id, next = url_for('blog.index'))}}">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-            <button type="submit" class="btn btn-link btn-sm"
+            <button type="submit" class="btn btn-link"
                 onclick="return confirm('Do you really want to delete this article?');">
                 Delete
             </button>
         </form>
-        <button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target=".articleLinkModal">
+        <button type="button" class="btn btn-link" data-toggle="modal" data-target=".articleLinkModal">
             Share
         </button>
         <div class="modal fade articleLinkModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
@@ -54,7 +54,8 @@
         {% endif %}
     </ul>
 
-    <small>
+    <div>
+        <p></p>
         Category:&nbsp;
         <a href="{{ url_for('.display_category', category_id = article.category.id)}}">
             {{ article.category.name}}
@@ -62,8 +63,11 @@
         Edit Time:&nbsp;{{ article.timestamp}}
         <br>
         PageView:&nbsp;{{article.count_read}}
+        <p></p>
+        <br>
         <hr>
-    </small>
+
+    </div>
 </div>
 
 <div class="row">
@@ -81,18 +85,19 @@
                     </a>
                 </small>
                 {% if current_user.is_authenticated %}
-                <form action="{{ url_for('management.set_comment', article_id = article.id, next = request.full_path)}}"
-                    class="float-right" method="POST">
-                    <input type="hidden" name="csrf-token" value="{{ csrf_token()}}" />
-                    <button type="submit" class="btn btn-warning btn-sm">
-                        {% if article.comment_open %}
-                        Disable
-                        {% else %}
-                        Enable
-                        {% endif %}
-                        Comment
-                    </button>
-                </form>
+                <form class="float-right" method="POST"
+                        action="{{ url_for('management.set_comment', article_id=article.id, next=request.full_path) }}">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                        <button type="submit" class="btn btn-primary " 
+                                >
+                            {% if article.comment_open %}
+                                Disable
+                            {% else %}
+                                Enable
+                            {% endif %}
+                                Comment
+                        </button>
+                    </form>
                 {% endif %}
             </h3>
             {% if comments %}
