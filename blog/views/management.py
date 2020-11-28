@@ -1,9 +1,10 @@
 import os
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, send_from_directory
 from flask_login import login_user, logout_user
 from flask_login import login_required, current_user
 from blog.forms import bio_form, article_form, category_form
 from blog.extensions import db
+from flask_ckeditor import upload_success, upload_fail
 
 from blog.models import Article, Category, Comment
 from flask import render_template, flash, redirect, url_for
@@ -89,8 +90,8 @@ def add_article():
     if form.validate_on_submit():
         title = form.title.data 
         body = form.body.data 
-        category = form.category.data    
-        article = Article(title=title, body=body, category=category)
+        category = Category.query.get(form.category.data)    
+        article = Article(title=title, body=body, category=category, count_read=0)
         db.session.add(article)
         db.session.commit()
         flash('Added', 'success')
@@ -171,6 +172,30 @@ def delete_comment(comment_id):
     flash('Deleted', 'success')
     return redirect_to_last_page()
 
+
+@manage_blueprint.route('/uploads/<path:filename>')
+def get_file(filename):
+    return send_from_directory(current_app.config['UPLOAD_PATH'], filename)
+
+@manage_blueprint.route('/upload_image', methods=['POST'])
+def upload_image():
+    file = request.files.get('upload')
+    if not ('.' in file.filename and \
+         file.filename.rsplit('.', 1)[1].lower() in \
+                 current_app.config['ELIGIBLE_IMAGE']):
+        return upload_fail('Can only upload an image(jpg, jpeg, png, gif)')
+    file.save(os.path.join(current_app.config['UPLOAD_PATH'], file.filename))
+    return upload_success(url_for('.get_file', filename=file.filename))
+
+@manage_blueprint.route('/upload_pdf', methods=['POST'])
+def upload_pdf():
+    file = request.files.get('upload')
+    if not ('.' in file.filename and \
+             file.filename.rsplit('.', 1)[1].lower() in \
+                 current_app.config['ELIGIBLE_PDF']):
+        return upload_fail('Can only upload a pdf')
+    file.save(os.path.join(current_app.config['UPLOAD_PATH'], file.filename))
+    return upload_success(url_for('.get_file', filename=file.filename))
 
 
 

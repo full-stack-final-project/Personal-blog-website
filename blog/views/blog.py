@@ -15,6 +15,8 @@ blog_blueprint = Blueprint('blog', __name__)
 def index():
     return render_template('blog/index.html')
 
+
+
 @blog_blueprint.route('/recommand')
 def recommand():
     page = request.args.get('page', 1, type = int)
@@ -34,7 +36,7 @@ def display():
 
 @blog_blueprint.route('/about')
 def about():
-    return "This should be a CV webpage, including experience and skills"
+    return render_template('blog/display_cv.html')
 
 
 @blog_blueprint.route('/article/<int:article_id>', methods=['GET', 'POST'])
@@ -51,7 +53,7 @@ def display_article(article_id):
     if current_user.is_authenticated:
         form = admin_comment_form()
         form.person_post.data = current_user.name
-        form.email.data = current_app.config['MAIL_ADDRESS']
+        form.email.data = current_app.config['EMAIL_ADDRESS']
         from_admin = True
         reviewed = True 
         form.site.data = url_for('.index')
