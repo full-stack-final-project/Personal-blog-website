@@ -6,7 +6,7 @@ from threading import Thread
 
 
 def send_mail(subject, to, html):
-    message = Message(subject, recipients=[to], html=html)
+    message = Message(subject,sender=current_app.config['MAIL_DEFAULT_SENDER'] ,recipients=[to], html=html)
     thread = Thread(target=_send_async, 
             args=[current_app._get_current_object(), message])
     thread.start()
@@ -20,7 +20,7 @@ def _send_async(app, message):
 
 def send_new_comment_reminding(article):
     send_mail(subject='New Comment for your article(Do not reply this email)', 
-        to=current_app.config['EMAIL_ADDRESS'],
+        to=current_app.config['MAIL_USERNAME'],
         html='<p>New comment for your <a href="%s">"%s"</a></p>'
              % (article.title, url_for('blog.display_article', article_id=article.id, _external=True) + '#comments'))
 

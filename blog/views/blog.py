@@ -52,7 +52,7 @@ def display_article(article_id):
     if current_user.is_authenticated:
         form = admin_comment_form()
         form.person_post.data = current_user.name
-        form.email.data = current_app.config['EMAIL_ADDRESS']
+        form.email.data = current_app.config['MAIL_USERNAME']
         from_admin = True
         reviewed = True 
         form.site.data = url_for('.index')

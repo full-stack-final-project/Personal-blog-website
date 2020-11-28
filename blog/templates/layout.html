@@ -13,35 +13,56 @@
     </title>
 
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/academic.css') }}" type="text/css">
     
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" type="text/css">
     <!-- <link rel="stylesheet" href="{{ url_for('static', filename='revel_custom.min.css') }}" type="text/css"> -->
     {% endblock head%}
 </head>
 
 <body>
     {% block nav%}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-primary bg-light">
         <div class="container">
-            <a class="navbar-brand text-uppercase" href="{{ url_for('blog.index')}}">
+            <a class="navbar-brand text-uppercase" style="font-weight: bold;" href="{{ url_for('blog.index')}}" >
                 {{ admin.name}}
             </a>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
-                aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+                aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation" >
+                <span class="navbar-toggler-icon" ></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav mr-auto text-uppercase">
-                    {{ render_nav_item('blog.index', 'Home')}}
+                    <li class="nav-item">
+                        <a class="nav-link" style="font-weight: bold;" href="{{ url_for('blog.index')}}" >
+                            Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="font-weight: bold;" href="{{ url_for('blog.about')}}" >
+                            About
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="font-weight: bold;" href="{{ url_for('blog.recommend')}}" >
+                            recommend
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="font-weight: bold;" href="{{ url_for('blog.display')}}" >
+                            BLog
+                        </a>
+                    </li>
+                    
+                    <!-- {{ render_nav_item('blog.index', 'Home')}}
                     {{ render_nav_item('blog.about', 'About')}}
-                    {{ render_nav_item('blog.display', 'Blog')}}
+                    {{ render_nav_item('blog.display', 'Blog')}} -->
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {% if current_user.is_authenticated %}
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle text-uppercase" data-toggle="dropdown" role="button"
-                            aria-haspopup="true" aria-expanded="false">
+                            aria-haspopup="true" aria-expanded="false" style="font-weight: bold;">
                             Management
                             <span class="caret"></span>
                             {% if unread_comments %}
@@ -50,20 +71,20 @@
                             </span>
                             {% endif %}
                         </a>
-                        <div class="dropdown-menu " aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ url_for('management.add_article') }}">
+                        <div class="dropdown-menu ">
+                            <a class="dropdown-item" href="{{ url_for('management.add_article') }}" style="font-weight: bold;">
                                 New Article
                             </a>
-                            <a class="dropdown-item" href="{{ url_for('management.add_category') }}">
+                            <a class="dropdown-item" href="{{ url_for('management.add_category') }}" style="font-weight: bold;">
                                 New Category
                             </a>
-                            <a class="dropdown-item" href="{{ url_for('management.manage_article') }}">
+                            <a class="dropdown-item" href="{{ url_for('management.manage_article') }}" style="font-weight: bold;">
                                 Manage Article
                             </a>
-                            <a class="dropdown-item" href="{{ url_for('management.manage_category') }}">
+                            <a class="dropdown-item" href="{{ url_for('management.manage_category') }}" style="font-weight: bold;">
                                 Manage Category
                             </a>
-                            <a class="dropdown-item" href="{{ url_for('management.manage_comment') }}">
+                            <a class="dropdown-item" href="{{ url_for('management.manage_comment') }}" style="font-weight: bold;">
                                 Manage Comment
                                 {% if unread_comments %}
                                     <span class="badge badge-success"> 
@@ -71,18 +92,20 @@
                                     </span>
                                 {% endif %}
                             </a>
-                            <a class="dropdown-item" href="{{ url_for('management.add_article') }}">
+                            <a class="dropdown-item" href="{{ url_for('management.add_article') }}" style="font-weight: bold;">
                                 Settings
                             </a>
-                            <a href="{{ url_for('authorization.logout', next = request.full_path )}}" 
-                                style="color: white;">
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Logout
+                            <a class="dropdown-item" href="{{ url_for('authorization.logout', next = request.full_path )}}" 
+                            style="font-weight: bold;" >
+                                Logout
                             </a>
                             {% else %}
-                                <a href="{{ url_for('authorization.login', next = request.full_path )}}"
-                                    style="color: white;">
+                            <li  class="nav-item">
+                                <a class="nav-link" href="{{ url_for('authorization.login', next = request.full_path )}}"
+                                style="font-weight: bold;" >
                                     Login
                                 </a>
+                            </li>
                             {% endif %}
                         </div>
                     </li>
@@ -118,17 +141,15 @@
     {% block script %}
     <script type="text/javascript" src="{{ url_for('static', filename = 'js/jquery-3.2.1.slim.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename = 'js/popper.min.js') }}"></script>
-    <!-- <script type="text/javascript" src="{{ url_for('static', filename = 'js/bootstrap.min.js') }}"></script> -->
+    <script type="text/javascript" src="{{ url_for('static', filename = 'js/bootstrap.min.js') }}"></script>
     <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
-        integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
-        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous">
+    
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+        integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous"> -->
+   <!--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"> -->
     </script>
     <script type="text/javascript" src="{{ url_for('static', filename = 'js/script.js') }}"></script>
-    <!-- {{ moment.include_moment(local_js = url_for('static', filename = 'js/moment-with-locales.min.js'))}} -->
-    <!-- <script type="text/javascript" 
-        src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment-with-locales.min.js"></script> -->
     {% endblock %}
 </body>
 

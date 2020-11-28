@@ -14,10 +14,10 @@ class BaseConfig(object):
     MAIL_USE_SSL = True
     MAIL_USE_TLS = False
     #EMAIL_ADDRESS = os.getenv('EMAIL_ADDERSS')
-    EMAIL_ADDRESS = 'fullblogtest@gmail.com'
+    MAIL_USERNAME = 'fullblogtest@gmail.com'
     #EMAIL_PASSWORD = os.getenv('EMAIL_PASSWORD')
-    EMAIL_PASSWORD = 'fullstack'
-    MAIL_DEFAULT_SENDER = ('blog test', EMAIL_ADDRESS)
+    MAIL_PASSWORD = 'fullstack'
+    MAIL_DEFAULT_SENDER = ('fullblogtest@gmail.com', MAIL_USERNAME)
 
     ARTICLE_PER_PAGE = 9
     MANAGE_ARTICLE_PER_PAGE = 10
