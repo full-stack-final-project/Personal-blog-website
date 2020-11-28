@@ -20,7 +20,7 @@ a:hover {
 html,
 body {
 	height: 100%;
-	background-color: #333;
+	background-color:rgba(82, 181, 243, 0.739);
 }
 
 body {
@@ -42,7 +42,7 @@ body {
 	height: 100%;
 	/* For at least Firefox */
 	min-height: 100%;
-	background: url(../img/portland.jpg) no-repeat;
+	background: url(../img/portland2.jpg) no-repeat;
 	background-size: cover;
 	background-position: center center;
 	overflow: hidden;

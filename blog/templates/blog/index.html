@@ -34,10 +34,11 @@
                             
                             <nav>
                                 <ul class="nav masthead-nav">
-                                    <li class="active"><a href="/blog/index/">HOME</a></li>
-                                    <li><a href="/blog/list/">BLOG</a></li>
+                                    <li class="active"><a href="{{url_for('.index')}}">HOME</a></li>
+                                    <li><a href="{{url_for('.recommand')}}">RECOMMAND</a></li>
+                                    <li><a href="{{url_for('.display')}}">BLOG</a></li>
                                     
-                                    <li><a href="/blog/aboutme/">ABOUT</a></li>
+                                    <li><a href="{{url_for('.about')}}">ABOUT</a></li>
                                 </ul>
                             </nav>
     
@@ -51,7 +52,7 @@
                             Stay hungry. Stay foolish.<br>
                         </p>
                         <p class="lead">
-                            <a href="/blog/list/" class="btn btn-lg btn-default">Read more</a>
+                            <a href="{{url_for('blog.about')}}" class="btn btn-lg btn-default">Read more</a>
                         </p>
                     </div>
     
