@@ -37,6 +37,7 @@
                         <a href="{{ url_for('.display_category', category_id = article.category.id)}}">
                             {{ article.category.name}}
                         </a>
+                        &nbsp;&nbsp;PageView:&nbsp;{{article.count_read}}
                             <span class="float-right">
                                 {{ article.timestamp}}
                             </span>

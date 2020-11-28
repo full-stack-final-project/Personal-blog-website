@@ -15,14 +15,14 @@ blog_blueprint = Blueprint('blog', __name__)
 def index():
     return render_template('blog/index.html')
 
-@blog_blueprint.route('/recommand')
-def recommand():
+@blog_blueprint.route('/recommend')
+def recommend():
     page = request.args.get('page', 1, type = int)
     per_page = current_app.config['ARTICLE_PER_PAGE']
     
     pagination = Article.query.order_by(Article.count_read.desc()).paginate(page, per_page = per_page)
     articles = pagination.items
-    return render_template('blog/recommand.html', pagination = pagination, articles = articles)
+    return render_template('blog/recommend.html', pagination = pagination, articles = articles)
 
 @blog_blueprint.route('/display')
 def display():
