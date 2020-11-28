@@ -24,7 +24,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
             <a class="navbar-brand text-uppercase" href="{{ url_for('blog.index')}}">
-                {{ admin.site_title}}
+                {{ admin.name}}
             </a>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
@@ -35,6 +35,7 @@
                 <ul class="navbar-nav mr-auto text-uppercase">
                     {{ render_nav_item('blog.index', 'Home')}}
                     {{ render_nav_item('blog.about', 'About')}}
+                    {{ render_nav_item('blog.display', 'Blog')}}
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {% if current_user.is_authenticated %}
