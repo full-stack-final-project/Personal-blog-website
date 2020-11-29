@@ -1,0 +1,4 @@
+.env
+.dev.db
+blog/static/uploads/
+*.log

@@ -1,0 +1,129 @@
+{% from 'bootstrap/pagination.html' import render_pagination  %}
+{% extends 'layout.html' %}
+
+{% block title %}
+Manage Articles
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2 >
+        {{pagination.total}} Articles
+        <span class="float-right">
+            <a class='btn btn-link ' 
+                style="color: blue;" 
+                href="{{url_for('.add_article')}}">
+                Add a article
+            </a>
+        </span>
+    </h2>
+</div>
+{% if articles %}
+<table class="table table-borderless">
+
+    <thead>
+        <tr>
+            <th>
+                Article
+            </th>
+            <th>
+                Category
+            </th>
+            <th>
+                Number of Comments
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                Operation
+            </th>
+        </tr>
+    </thead>
+
+    {% for article in articles %}
+    <tr>
+        <td>
+            <h4 class="text-primary">
+                <a href="{{ url_for('blog.display_article', article_id = article.id)}}">
+                    {{ article.title }}
+                </a>
+            </h4>
+            <!-- <small class="">
+                {{ article.body | striptags | truncate}}
+                <small>
+                    <a href=" {{ url_for('blog.display_article', article_id = article.id) }}">
+                        Read more
+                    </a>
+                </small>
+            </small> -->
+            <small>
+        </td>
+
+        <td>
+            <a href="{{ url_for('blog.display_category', category_id = article.category.id)}}">
+                {{ article.category.name}}
+            </a>
+
+        </td>
+
+        <td>
+            <a href="{{ url_for('blog.display_article', article_id = article.id)}}#comments">
+                            {{ article.comments | length}}
+            </a>
+        </td>
+
+        <td>
+            <small>{{ article.timestamp}}</small>
+            
+        </td>
+
+        <td>
+            <small>
+                <div class="row">
+                    <form class="inline" method="POST"
+                        action="{{ url_for('.set_comment', article_id=article.id, next=request.full_path) }}">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                        <button type="submit" class="btn btn-link btn-sm" 
+                                style="color:blue">
+                            {% if article.comment_open %}
+                                Disable
+                            {% else %}
+                                Enable
+                            {% endif %}
+                                Comment
+                        </button>
+                    </form>
+                    
+                    <a class="btn btn-link btn-sm" style="color:blue"
+                        href="{{ url_for('.edit_article', article_id=article.id) }}">
+                        Edit
+                    </a>
+                    <form class="inline" method="post"
+                        action="{{ url_for('.delete_article', article_id=article.id, next=request.full_path) }}">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                        <button type="submit" class="btn btn-link btn-sm" 
+                            style="color: red;"
+                            onclick="return confirm('Are you sure?');">
+                            Delete
+                        </button>
+                    </form>
+    
+                </div>
+            </small>
+        </td>
+       
+    </tr>
+    {% endfor %}
+
+</table>
+<div class="page-footer">
+    {{render_pagination(pagination)}}
+
+</div>
+
+{% else %}
+<h2>No Comments now</h2>
+{% endif %}
+
+{% endblock %}
