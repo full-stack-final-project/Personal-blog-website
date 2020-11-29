@@ -83,7 +83,6 @@ def register_commands(app):
     @click.option('--password', prompt=True, 
                                 hide_input=True, 
                                 confirmation_prompt=True)
-    @click.option('--site_title', prompt=True)
     def init(username, password):
 
         click.echo('Initializing...')
@@ -97,7 +96,7 @@ def register_commands(app):
         else:
             admin = Admin(username=username, 
                           name='Admin', 
-                          site_title=site_title, about="")
+                          site_title="Jason's site", about="")
             admin.set_password(password)
             db.session.add(admin)
 
@@ -162,17 +161,17 @@ def register_errors(app):
 
     @app.errorhandler(CSRFError)
     def handle_csrf_error(e):
-        return render_template('errors/400.html', description=e.description), 400
+        return render_template('error/400.html', description=e.description), 400
     
     @app.errorhandler(400)
     def bad_request(e):
-        return render_template('errors/400.html'), 400
+        return render_template('error/400.html'), 400
     
     @app.errorhandler(404)
     def page_not_found(e):
-        return render_template('errors/404.html'), 404
+        return render_template('error/404.html'), 404
     
     @app.errorhandler(500)
     def internal_server_error(e):
-        return render_template('errors/500.html'), 500
+        return render_template('error/500.html'), 500
 
