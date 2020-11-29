@@ -4,7 +4,7 @@
 
 This is a final project of CS465/565P for bulding a personal blog website using Python and Flask!
 
-Demo:
+Demo: https://yq-blogsite.herokuapp.com/
 
 ## Installation
 
