@@ -22,10 +22,10 @@ def send_new_comment_reminding(article):
     send_mail(subject='New Comment for your article(Do not reply this email)', 
         to=current_app.config['MAIL_USERNAME'],
         html='<p>New comment for your <a href="%s">"%s"</a></p>'
-             % ( (url_for('blog.display_article', article_id=article.id, _external=True)  + '#comments'), article.title)
+             % ( (url_for('blog.display_article', article_id=article.id, _external=True)  + '#comments'), article.title))
 
 def send_reply_comment(comment):
     send_mail(subject='New Reply for your comment(s) in your article(Do not reply this email)', 
         to=comment.email,
         html='<p>New reply for your comment(s) in <a href="%s">"%s"</a></p>'
-             % ( (url_for('blog.display_article', article_id=comment.article_id, _external=True) + '#comments'), comment.article.title)
+             % ( (url_for('blog.display_article', article_id=comment.article_id, _external=True) + '#comments'), comment.article.title))
