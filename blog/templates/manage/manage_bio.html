@@ -1,0 +1,291 @@
+{% extends 'layout.html' %}
+
+{% block titie %}
+Manage AboutMe
+{% endblock %}
+
+{% block content %}
+
+<h3>Bio
+    {% if not bio %}
+    <span class="float-right">
+        <a class='btn btn-link btn' 
+            style="color: blue;" 
+            href="{{url_for('.add_bio')}}">
+            Add a Bio
+        </a>
+    </span>
+    {%endif%}
+   
+</h3>
+
+<table class="table table-borderless">
+
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Intro
+            </th>
+            <th>
+                Current Job Title
+            </th>
+            <th>
+                operation
+            </th>
+        </tr>
+    </thead>
+
+    
+    <tr>
+        <td>
+           {{bio.name}}
+        </td>
+
+        <td>
+          {{bio.intro | safe }}
+
+        </td>
+
+        <td>
+           {{bio.current_job}}
+        </td>
+
+    
+
+        <td>
+            <a class="btn btn-link btn-sm" style="color:blue"
+                        href="{{ url_for('.edit_bio')}}">
+                        Edit
+                    </a>
+        </td>
+       
+    </tr>
+    
+
+</table>
+
+<h3>Work Experiences
+    <span class="float-right">
+        <a class='btn btn-link btn' 
+            style="color: blue;" 
+            href="{{url_for('.add_work')}}">
+            Add a work experience
+        </a>
+    </span>
+</h3>
+
+<table class="table table-borderless">
+
+    <thead>
+        <tr>
+            <th>
+                Job Title
+            </th>
+            <th>
+                abstract
+            </th>
+            <th>
+                time
+            </th>
+            <th>
+                company
+            </th>
+            <th>
+                operation
+            </th>
+        </tr>
+    </thead>
+
+    {%if  works%}
+    {% for work in works%}
+    <tr>
+        <td>
+           {{work.titie}}
+        </td>
+
+        <td>
+          {{work.abstract | safe}}
+
+        </td>
+
+        <td>
+           {{work.time}}
+        </td>
+
+        <td>
+            {{work.company}}
+         </td>
+
+        <td>
+            <a class="btn btn-link btn-sm" style="color:blue"
+                        href="{{ url_for('.edit_work', work_id = work.id)}}">
+                        Edit
+                    </a>
+            
+                    <form class="inline" method="post"
+                        action="{{ url_for('.delete_work', work_id=work.id, next=request.full_path) }}">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                        <button type="submit" class="btn btn-link btn-sm" 
+                            style="color: red;"
+                            onclick="return confirm('Are you sure?');">
+                            Delete
+                        </button>
+                    </form>
+        </td>
+       
+    </tr>
+    {% endfor %}
+    {% endif%}
+    </table>
+
+    <h3>Projects
+        <span class="float-right">
+            <a class='btn btn-link btn' 
+                style="color: blue;" 
+                href="{{url_for('.add_project')}}">
+                Add a project
+            </a>
+        </span>
+    </h3>
+    
+    <table class="table table-borderless">
+    
+        <thead>
+            <tr>
+                <th>
+                    Project Title
+                </th>
+                <th>
+                    abstract
+                </th>
+                
+                <th>
+                    role
+                </th>
+                <th>
+                    operation
+                </th>
+            </tr>
+        </thead>
+    
+        {%if  projects%}
+        {% for project in projects%}
+        <tr>
+            <td>
+               {{project.titie}}
+            </td>
+    
+            <td>
+              {{project.abstract | safe}}
+    
+            </td>
+    
+            <td>
+                {{project.role}}
+             </td>
+    
+            <td>
+                <a class="btn btn-link btn-sm" style="color:blue"
+                            href="{{ url_for('.edit_project', project_id = project.id)}}">
+                            Edit
+                        </a>
+                
+                        <form class="inline" method="post"
+                            action="{{ url_for('.delete_project', project_id=project.id, next=request.full_path) }}">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                            <button type="submit" class="btn btn-link btn-sm" 
+                                style="color: red;"
+                                onclick="return confirm('Are you sure?');">
+                                Delete
+                            </button>
+                        </form>
+            </td>
+           
+        </tr>
+        {% endfor %}
+        {% endif%}
+        </table>
+
+        <h3>Skills
+            <span class="float-right">
+                <a class='btn btn-link btn' 
+                    style="color: blue;" 
+                    href="{{url_for('.add_skill')}}">
+                    Add a Skill
+                </a>
+            </span>
+        </h3>
+        
+        <table class="table table-borderless">
+        
+            <thead>
+                <tr>
+                    <th>
+                        Skill content
+                    </th>
+                    <th>
+                        Is techical
+                    </th>
+                    
+                
+                    <th>
+                        operation
+                    </th>
+                </tr>
+            </thead>
+        
+            {%if  skills%}
+            {% for skill in skills%}
+            <tr>
+                <td>
+                   {{skill.content}}
+                </td>
+        
+                <td>
+                  {{skill.is_techical}}
+        
+                </td>
+        
+                
+        
+                <td>
+                    <div class="row">
+                    <a class="btn btn-link btn-sm" style="color:blue"
+                                href="{{ url_for('.edit_skill', skill_id = skill.id)}}">
+                                Edit
+                            </a>
+                    
+                            <form class="inline" method="post"
+                                action="{{ url_for('.delete_skill', skill_id=skill.id, next=request.full_path) }}">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                                <button type="submit" class="btn btn-link btn-sm" 
+                                    style="color: red;"
+                                    onclick="return confirm('Are you sure?');">
+                                    Delete
+                                </button>
+                            </form>
+
+                            <form class="inline" method="POST"
+                            action="{{ url_for('.set_techical', skill_id=skill.id, next=request.full_path) }}">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                            <button type="submit" class="btn btn-link btn-sm" 
+                                    style="color:blue">
+                                {% if skill.is_techical %}
+                                    Disable
+                                {% else %}
+                                    Enable
+                                {% endif %}
+                                    Techical
+                            </button>
+                        </form>
+                    </div>
+                </td>
+               
+            </tr>
+            {% endfor %}
+            {% endif%}
+            </table>
+{% endblock %}
