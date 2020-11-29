@@ -45,3 +45,14 @@ Demo: https://yq-blogsite.herokuapp.com/
 Username: admin
 
 Password: fullstack
+
+## References
+
+https://www.youtube.com/watch?v=XHGpPCYmPvI
+
+https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
+
+https://github.com/greyli/helloflask
+
+https://flask.palletsprojects.com/en/1.1.x/tutorial/blog/
+
