@@ -5,9 +5,10 @@ from flask_ckeditor import CKEditor
 from flask_login import LoginManager
 from flask_moment import Moment 
 from flask_mail import Mail
+from flask_migrate import Migrate
 
 
-
+migrate = Migrate()
 ckeditor = CKEditor()
 db = SQLAlchemy()
 bootstrap = Bootstrap()
