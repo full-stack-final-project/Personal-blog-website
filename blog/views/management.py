@@ -79,11 +79,11 @@ def edit_bio():
     bio = Bio.query.first()
     if form.validate_on_submit():
         bio.name = form.name.data 
-        bio.current_job =form.current_job.dat 
+        bio.current_job =form.current_job.data     
         bio.intro = form.body.data
         db.session.commit()
         flash('Updated', 'success')
-        return redirect_to_last_page()
+        return redirect(url_for('.manage_bio'))
     form.name.data = bio.name
     form.current_job.data = bio.current_job
     form.body.data = bio.intro
@@ -114,6 +114,8 @@ def edit_skill(skill_id):
         db.session.commit()
         flash('Edited', 'success')
         return redirect(url_for('.manage_bio'))
+    form.content.data = skill.content
+    form.techical.data = skill.is_techical
     return render_template('manage/edit_bio.html', form=form, title='Skill')
 
 @manage_blueprint.route('/work/<int:work_id>/edit', methods=['POST', 'GET'])
@@ -129,6 +131,10 @@ def edit_work(work_id):
         db.session.commit()
         flash('Edited', 'success')
         return redirect(url_for('.manage_bio'))
+    form.title.data  = work.title
+    form.company.data = work.company
+    form.time.data = work.time
+    form.body.data = work.abstract
     return render_template('manage/edit_bio.html', form=form, title='Work Experience')
 
 @manage_blueprint.route('/project/<int:project_id>/edit', methods=['POST', 'GET'])
@@ -144,6 +150,10 @@ def edit_project(project_id):
         db.session.commit()
         flash('Edited', 'success')
         return redirect(url_for('.manage_bio'))
+    form.title.data = project.title
+    form.role.data = project.role
+    form.body.data = project.abstract
+
     return render_template('manage/edit_project.html', form=form, title='Project')
     
 

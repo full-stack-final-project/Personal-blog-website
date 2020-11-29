@@ -45,7 +45,7 @@ Manage AboutMe
         </td>
 
         <td>
-          {{bio.intro}}
+          {{bio.intro | safe }}
 
         </td>
 
@@ -107,7 +107,7 @@ Manage AboutMe
         </td>
 
         <td>
-          {{work.abstract}}
+          {{work.abstract | safe}}
 
         </td>
 
@@ -179,7 +179,7 @@ Manage AboutMe
             </td>
     
             <td>
-              {{project.abstract}}
+              {{project.abstract | safe}}
     
             </td>
     
