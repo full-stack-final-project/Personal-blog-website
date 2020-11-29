@@ -2,11 +2,11 @@ import os
 from flask import Blueprint, render_template, send_from_directory
 from flask_login import login_user, logout_user
 from flask_login import login_required, current_user
-from blog.forms import bio_form, article_form, category_form
+from blog.forms import bio_form, article_form, category_form, work_form, project_form, skill_form, bio_form
 from blog.extensions import db
 from flask_ckeditor import upload_success, upload_fail
 
-from blog.models import Article, Category, Comment
+from blog.models import Article, Category, Comment, Bio, Skill, Project, Work_
 from flask import render_template, flash, redirect, url_for
 from flask import  request, current_app
 
@@ -71,6 +71,173 @@ def delete_article(article_id):
 @login_required
 def manage_category():
     return render_template('manage/manage_categories.html')
+
+@manage_blueprint.route('/bio/edit', methods=['POST', 'GET'])
+@login_required
+def edit_bio():
+    form = bio_form()
+    bio = Bio.query.first()
+    if form.validate_on_submit():
+        bio.name = form.name.data 
+        bio.current_job =form.current_job.dat 
+        bio.intro = form.body.data
+        db.session.commit()
+        flash('Updated', 'success')
+        return redirect_to_last_page()
+    form.name.data = bio.name
+    form.current_job.data = bio.current_job
+    form.body.data = bio.intro
+    return render_template('manage/edit_bio.html', form=form, title='Bio') 
+
+@manage_blueprint.route('/bio/add', methods=['POST', 'GET'])
+@login_required
+def add_bio():
+    form = bio_form()
+    if form.validate_on_submit():
+        bio.name = form.name.data 
+        bio.current_job =form.current_job.dat 
+        bio.intro = form.body.data
+        db.session.commit()
+        flash('Updated', 'success')
+        return redirect_to_last_page()
+    return render_template('manage/add_bio.html', form=form, title='Bio')
+
+@manage_blueprint.route('/skill/<int:skill_id>/edit', methods=['POST', 'GET'])
+@login_required
+def edit_skill(skill_id):
+    form = skill_form()
+    skill = Skill.query.get(skill_id)
+    if form.validate_on_submit():
+        skill.content = form.content.data    
+        skill.is_techical = form.techical.data     
+        
+        db.session.commit()
+        flash('Edited', 'success')
+        return redirect(url_for('.manage_bio'))
+    return render_template('manage/edit_bio.html', form=form, title='Skill')
+
+@manage_blueprint.route('/work/<int:work_id>/edit', methods=['POST', 'GET'])
+@login_required
+def edit_work(work_id):
+    form = work_form()
+    work = Work_.query.get(work_id)
+    if form.validate_on_submit():
+        work.title = form.title.data 
+        work.company = form.company.data
+        work.time = form.time.data   
+        work.abstract = form.body.data   
+        db.session.commit()
+        flash('Edited', 'success')
+        return redirect(url_for('.manage_bio'))
+    return render_template('manage/edit_bio.html', form=form, title='Work Experience')
+
+@manage_blueprint.route('/project/<int:project_id>/edit', methods=['POST', 'GET'])
+@login_required
+def edit_project(project_id):
+    form = project_form()
+    project = Project.query.get(project_id)
+    if form.validate_on_submit():
+        project.title = form.title.data 
+        project.role = form.role.data      
+        project.abstract = form.body.data   
+        
+        db.session.commit()
+        flash('Edited', 'success')
+        return redirect(url_for('.manage_bio'))
+    return render_template('manage/edit_project.html', form=form, title='Project')
+    
+
+@manage_blueprint.route('/skill/<int:skill_id>/delete', methods=['POST'])
+@login_required
+def delete_skill(skill_id):
+    skill = Skill.query.get_or_404(skill_id)
+    work.delete()
+    flash('Deleted', 'success')
+    return render_template('manage/manage_bio.html')
+
+@manage_blueprint.route('/project/<int:project_id>/delete', methods=['POST'])
+@login_required
+def delete_project(project_id):
+    project = Project.query.get_or_404(project_id)
+    project.delete()
+    flash('Deleted', 'success')
+    return render_template('manage/manage_bio.html')
+
+@manage_blueprint.route('/work/<int:work_id>/delete', methods=['POST'])
+@login_required
+def delete_work(work_id):
+    work = Work_.query.get_or_404(work_id)
+    work.delete()
+    flash('Deleted', 'success')
+    return render_template('manage/manage_bio.html')
+
+@manage_blueprint.route('skill/<int:skill_id>/set_techical', methods=['POST'])
+@login_required
+def set_techical(skill_id):
+    skill = Skill.query.get_or_404(skill_id)
+    if skill.is_techical:
+        article.is_techical = False
+    else:
+        article.is_techical = True
+    db.session.commit()
+    return redirect_to_last_page()
+
+@manage_blueprint.route('/work/add', methods = ['GET', 'POST'])
+@login_required
+def add_work():
+    form = work_form()
+    if form.validate_on_submit():
+        title = form.title.data 
+        company = form.company.data
+        time = form.time.data   
+        abstract = form.body.data   
+        work = Work_(title=title, company=company, time=time, abstract=abstract) 
+        db.session.add(work)
+        db.session.commit()
+        flash('Added', 'success')
+        return redirect(url_for('.manage_bio'))
+    return render_template('manage/add_bio.html', form=form, title='Work Experience')
+    
+
+@manage_blueprint.route('/skill/add', methods = ['GET', 'POST'])
+@login_required
+def add_skill():
+    form = skill_form()
+    if form.validate_on_submit():
+        content = form.content.data    
+        is_techical = form.techical.data     
+        skill = Skill(content=content) 
+        db.session.add(skill)
+        db.session.commit()
+        flash('Added', 'success')
+        return redirect(url_for('.manage_bio'))
+    return render_template('manage/add_bio.html', form=form, title='Skill')
+
+@manage_blueprint.route('/project/add', methods = ['GET', 'POST'])
+@login_required
+def add_project():
+    form = project_form()
+    if form.validate_on_submit():
+        title = form.title.data 
+        role = form.role.data      
+        abstract = form.body.data   
+        project = Project(title=title, role=role, abstract=abstract) 
+        db.session.add(project)
+        db.session.commit()
+        flash('Added', 'success')
+        return redirect(url_for('.manage_bio'))
+    return render_template('manage/add_project.html', form=form, title='Project')
+
+
+
+@manage_blueprint.route('/bio/manage')
+@login_required
+def manage_bio():
+    bio = Bio.query.first()
+    works = Work_.query.all()
+    projects = Project.query.all()
+    skills = Skill.query.all()
+    return render_template('manage/manage_bio.html', bio=bio, works=works, projects=projects, skills=skills)
 
 @manage_blueprint.route('/category/<int:category_id>/delete', methods=['POST'])
 @login_required

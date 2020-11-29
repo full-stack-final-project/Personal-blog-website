@@ -92,8 +92,8 @@
                                     </span>
                                 {% endif %}
                             </a>
-                            <a class="dropdown-item" href="{{ url_for('management.add_article') }}" style="font-weight: bold;">
-                                Settings
+                            <a class="dropdown-item" href="{{ url_for('management.manage_bio') }}" style="font-weight: bold;">
+                                Manage AboutMe
                             </a>
                             <a class="dropdown-item" href="{{ url_for('authorization.logout', next = request.full_path )}}" 
                             style="font-weight: bold;" >

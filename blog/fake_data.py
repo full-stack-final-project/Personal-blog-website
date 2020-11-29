@@ -1,6 +1,6 @@
 from faker import Faker 
 from blog.extensions import db
-from blog.models import Admin, Category, Comment, Article
+from blog.models import Admin, Category, Comment, Article, Bio, Skill, Project, Work_
 from sqlalchemy.exc import IntegrityError
 
 
@@ -20,6 +20,73 @@ def fake_admin():
     admin.set_password('fullstack')
     db.session.add(admin)
     db.session.commit()
+
+    bio = Bio(
+        name = 'Jason Gale',
+        intro = 'Donec quam felis, ultricies nec, pellentesque eu. \
+             Lorem ipsum dolor sit amet, consectetuer adipiscing elit. \
+                  Aenean commodo ligula eget dolor. Aenean massa. \
+                      Cum sociis natoque penatibus et magnis dis parturient montes, \
+                          nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.\
+                               Maecenas nec odio et ante tincidunt tempus.\
+                           Donec vitae sapien ut libero venenatis faucibus.\
+                                Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh.',
+        current_job = 'Software Engineer'
+
+
+    )
+
+    db.session.add(bio)
+    db.session.commit()
+
+    work = Work_(
+        title = 'Senior Software Engineer',
+        abstract = 'Role description goes here ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.\
+             Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Donec pede justo,\
+             fringilla vel. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. \
+                 Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis.',
+        time = '2018-present',
+        company = 'Google'
+    )
+    db.session.add(work)
+    db.session.commit()
+
+    project = Project(
+        title = 'Senior Software Engineer',
+        abstract = 'Role description goes here ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.\
+             Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Donec pede justo,\
+             fringilla vel. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. \
+                 Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis.',
+        
+        role = 'Leader'
+    )
+    db.session.add(project)
+    db.session.commit()
+
+    skill_1 = Skill(
+        content = 'JavaScript/Angular/React/Vue',
+        is_techical = True
+    )
+    skill_2 = Skill(
+        content = 'Python/Ruby/PHP',
+        is_techical = True
+    )
+    skill_3 = Skill(
+        content = 'Effective communication',
+        is_techical = False
+    )
+
+    db.session.add(skill_1)
+    db.session.add(skill_2)
+    db.session.add(skill_3)
+    db.session.commit()
+
+
+    
+
+    
+
+
 
 # fake categories data
 def fake_categories(count = 10):

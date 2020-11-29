@@ -7,16 +7,16 @@ Manage Articles
 
 {% block content %}
 <div class="page-header">
-    <h3 >
+    <h2 >
         {{pagination.total}} Articles
         <span class="float-right">
-            <a class='btn btn-link btn-sm' 
+            <a class='btn btn-link ' 
                 style="color: blue;" 
                 href="{{url_for('.add_article')}}">
                 Add a article
             </a>
         </span>
-    </h3>
+    </h2>
 </div>
 {% if articles %}
 <table class="table table-borderless">

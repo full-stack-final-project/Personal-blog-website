@@ -1,6 +1,6 @@
 from flask import Blueprint
 from blog.extensions import db
-from blog.models import Article, Category, Comment
+from blog.models import Article, Category, Comment, Bio, Skill, Project, Work_
 from blog.forms import comment_form, admin_comment_form
 from flask import render_template, flash, redirect, url_for
 from flask import request, current_app
@@ -35,7 +35,12 @@ def display():
 
 @blog_blueprint.route('/about')
 def about():
-    return render_template('blog/display_cv.html')
+    bio = Bio.query.first()
+    works = Work_.query.all()
+    projects = Project.query.all()
+    skills = Skill.query.all()
+    return render_template('blog/bio.html', bio=bio, works=works, projects=projects, skills=skills)
+
 
 
 @blog_blueprint.route('/article/<int:article_id>', methods=['GET', 'POST'])

@@ -44,15 +44,26 @@ class admin_comment_form(comment_form):
 
 class bio_form(FlaskForm):
     name = StringField('Name', validators = [DataRequired(), Length(1, 30)])
-    #blog_title = StringField('Blog Title', validators = [DataRequired(), Length(1, 50)])
-    intor = CKEditorField('Introduction', validators = [DataRequired()])
-    skill = StringField('Skill 1')
-    skill = StringField('Skill 2')
-    skill = StringField('Skill 3')
-    skill = StringField('Skill 4')
-    skill = StringField('Skill 5')
-    project_title = StringField('Project title', validators = [Length(0, 50)])
-    project_role = StringField('Your role in this project', validators = [Length(0, 30)])
-    project_abstract = CKEditorField('Project introduction')
-
+    current_job = StringField('Current Job Title', validators = [DataRequired(), Length(1, 30)])
+    body = CKEditorField('Introduction', validators = [DataRequired()])
     submit = SubmitField()
+
+class work_form(FlaskForm):
+    title = StringField('Job Title', validators = [DataRequired(), Length(1,30)])
+    company = StringField('Company', validators = [DataRequired(), Length(1,30)])
+    time = StringField('yyyy - yyyy', validators=[DataRequired(), Length(1,30)])
+    body = CKEditorField('Abstract', validators = [DataRequired()])
+    submit = SubmitField()
+
+class project_form(FlaskForm):
+    title = StringField('Project Name', validators = [DataRequired(), Length(1,30)])
+    role = StringField('Role', validators = [DataRequired(), Length(1,30)])
+    body = CKEditorField('Abstract', validators = [DataRequired()])
+    submit = SubmitField()
+
+class skill_form(FlaskForm):
+    content = StringField('Your Skill', validators = [DataRequired(), Length(1,50)])
+    techical = BooleanField('Is techical skill?')
+    submit = SubmitField()
+
+

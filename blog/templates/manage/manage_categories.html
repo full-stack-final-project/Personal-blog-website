@@ -7,10 +7,10 @@ Manage Categories
 
 {% block content %}
 <div class="page-header">
-    <h2 class="display-3">
-        {{categories|length}} articles
+    <h2 >
+        {{categories|length}} categories
         <span class="float-right">
-            <a class='btn btn-link btn-sm' 
+            <a class='btn btn-link' 
                 style="color: blue;" 
                 href="{{url_for('.add_category')}}">
             Add a category
