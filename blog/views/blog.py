@@ -89,7 +89,7 @@ def display_article(article_id):
         db.session.commit()
 
         if current_user.is_authenticated:
-            flash('Displayed')
+            flash('Displayed', 'success')
         else:
             flash('Will display after being accepted', 'success')
             send_new_comment_reminding(article)
