@@ -66,4 +66,6 @@ Password: fullstack
 
 9. https://github.com/gautambajaj/Flask-Blog-App
 
-10. https://themes.3rdwavemedia.com/demo/devresume/
+10. https://getbootstrap.com/docs/4.0/getting-started/introduction/
+
+11. https://themes.3rdwavemedia.com/demo/devresume/
