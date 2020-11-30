@@ -149,8 +149,8 @@ def fake_comments(count = 300):
             from_admin = True,
             reviewed = True,
             timestamp = fake.date_time_this_year(),
-            email = fake.email(),
-            site = fake.url(),
+            email = 'fullblogtest@gmail.com',
+            site = 'https://yq-blogsite.herokuapp.com/',
             article = Article.query.get(random.randint(1, Article.query.count()))
         )
         db.session.add(comment)
