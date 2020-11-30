@@ -29,15 +29,13 @@ class Skill(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     content = db.Column(db.String(60), unique = True)
     is_techical = db.Column(db.Boolean, default = True)
-    #bio_id = db.Column(db.Integer, db.ForeignKey('bio.id'))
-    #bio = db.relationship('Bio', back_populates = 'skills')
-
+    
+    
 class Project(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     title = db.Column(db.String(50))
     abstract = db.Column(db.Text)
-    #bio_id = db.Column(db.Integer, db.ForeignKey('bio.id'))
-    #bio = db.relationship('Bio', back_populates = 'projects')
+   
     role = db.Column(db.String(30))
 
 class Work_(db.Model):

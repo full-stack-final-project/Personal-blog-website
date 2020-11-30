@@ -8,14 +8,11 @@ class BaseConfig(object):
 
     CKEDITOR_ENABLE_CSRF = True
     CKEDITOR_FILE_UPLOADER = 'management.upload_image'
-    #MAIL_SERVER = os.getenv('MAIL_SERVER')
     MAIL_SERVER = 'smtp.gmail.com'
     MAIL_PORT = 465
     MAIL_USE_SSL = True
     MAIL_USE_TLS = False
-    #EMAIL_ADDRESS = os.getenv('EMAIL_ADDERSS')
     MAIL_USERNAME = 'fullblogtest@gmail.com'
-    #EMAIL_PASSWORD = os.getenv('EMAIL_PASSWORD')
     MAIL_PASSWORD = 'fullstack'
     MAIL_DEFAULT_SENDER = ('fullblogtest@gmail.com', MAIL_USERNAME)
 
