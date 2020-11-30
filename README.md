@@ -4,7 +4,7 @@
 
 This is a final project of CS465/565P for bulding a personal blog website using Python and Flask!
 
-Demo: https://yq-blogsite.herokuapp.com/
+Deployment: https://yq-blogsite.herokuapp.com/
 
 ## Installation
 
@@ -48,22 +48,22 @@ Password: fullstack
 
 ## References
 
-https://www.youtube.com/watch?v=XHGpPCYmPvI
+1. https://www.youtube.com/watch?v=XHGpPCYmPvI
 
-https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
+2. https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
 
-https://flask.palletsprojects.com/en/1.1.x/tutorial/
+3. https://flask.palletsprojects.com/en/1.1.x/tutorial/
 
-https://flask-login.readthedocs.io/en/latest/
+4. https://flask-login.readthedocs.io/en/latest/
 
-https://github.com/gouthambs/Flask-Blogging
+5. https://github.com/gouthambs/Flask-Blogging
 
-https://github.com/greyli/helloflask
+6. https://github.com/greyli/helloflask
 
-https://www.digitalocean.com/community/tutorials/how-to-make-a-web-application-using-flask-in-python-3
+7. https://www.digitalocean.com/community/tutorials/how-to-make-a-web-application-using-flask-in-python-3
 
-https://charlesleifer.com/blog/how-to-make-a-flask-blog-in-one-hour-or-less/
+8. https://charlesleifer.com/blog/how-to-make-a-flask-blog-in-one-hour-or-less/
 
-https://github.com/gautambajaj/Flask-Blog-App
+9. https://github.com/gautambajaj/Flask-Blog-App
 
-https://themes.3rdwavemedia.com/demo/devresume/
+10. https://themes.3rdwavemedia.com/demo/devresume/
