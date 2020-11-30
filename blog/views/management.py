@@ -154,7 +154,7 @@ def edit_project(project_id):
     form.role.data = project.role
     form.body.data = project.abstract
 
-    return render_template('manage/edit_project.html', form=form, title='Project')
+    return render_template('manage/edit_bio.html', form=form, title='Project')
     
 
 @manage_blueprint.route('/skill/<int:skill_id>/delete', methods=['POST'])
@@ -236,7 +236,7 @@ def add_project():
         db.session.commit()
         flash('Added', 'success')
         return redirect(url_for('.manage_bio'))
-    return render_template('manage/add_project.html', form=form, title='Project')
+    return render_template('manage/add_bio.html', form=form, title='Project')
 
 
 
