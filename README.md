@@ -52,7 +52,16 @@ https://www.youtube.com/watch?v=XHGpPCYmPvI
 
 https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
 
+https://flask.palletsprojects.com/en/1.1.x/tutorial/
+
+https://flask-login.readthedocs.io/en/latest/
+
+https://github.com/gouthambs/Flask-Blogging
+
 https://github.com/greyli/helloflask
 
-https://flask.palletsprojects.com/en/1.1.x/tutorial/blog/
+https://www.digitalocean.com/community/tutorials/how-to-make-a-web-application-using-flask-in-python-3
 
+https://charlesleifer.com/blog/how-to-make-a-flask-blog-in-one-hour-or-less/
+
+https://github.com/gautambajaj/Flask-Blog-App
