@@ -186,9 +186,9 @@ def delete_work(work_id):
 def set_techical(skill_id):
     skill = Skill.query.get_or_404(skill_id)
     if skill.is_techical:
-        article.is_techical = False
+        skill.is_techical = False
     else:
-        article.is_techical = True
+        skill.is_techical = True
     db.session.commit()
     return redirect_to_last_page()
 
